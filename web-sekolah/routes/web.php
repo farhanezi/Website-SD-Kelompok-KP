@@ -1,11 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminDashboardController;
 
 Route::get('/', function () {
-<<<<<<< HEAD
+    if (auth()->check()) {
+        return redirect()->route('admin.dashboard');
+    }
+
     return view('home');
-=======
-    return view('general/landing_page');
->>>>>>> 77979ba2d8885462d84c597e4b86b7e1491b771b
+});
+
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
+    Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 });
