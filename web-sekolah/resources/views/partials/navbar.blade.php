@@ -1,8 +1,9 @@
 <nav class="navbar" id="navbar">
+    {{-- this is navbar links for template this website --}}
     <div class="nav-container">
         <a href="#beranda" class="logo">
             <span class="logo-mark">SD</span>
-            <span class="logo-text">SDN <strong>Nusantara</strong></span>
+            <span class="logo-text">SDN <strong>Dadapsari</strong></span>
         </a>
 
         <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false">
