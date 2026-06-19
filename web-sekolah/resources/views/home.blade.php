@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('title', 'Beranda')
-@section('description', 'Selamat datang di SDN Nusantara — sekolah dasar unggulan yang membentuk generasi cerdas dan berkarakter.')
+@section('description',
+    'Selamat datang di SDN Dadapsari — sekolah dasar unggulan yang membentuk generasi cerdas dan
+    berkarakter.')
 
 @section('content')
 
@@ -9,19 +11,28 @@
     <section id="beranda" class="hero">
         <div class="hero-inner">
             <span class="hero-badge">Selamat Datang di Website Resmi</span>
-            <h1>SDN <span>Nusantara</span></h1>
-            <p>Membentuk generasi cerdas, berkarakter, dan berakhlak mulia melalui pendidikan dasar yang berkualitas dan menyenangkan.</p>
+            <h1>SDN <span>Dadapsari</span></h1>
+            <p>Membentuk generasi cerdas, berkarakter, dan berakhlak mulia melalui pendidikan dasar yang berkualitas dan
+                menyenangkan.</p>
             <div class="hero-actions">
-                <a href="#ppdb" class="btn btn-primary">Daftar PPDB Sekarang</a>
+                @auth
+                    <a href="{{ route('admin.dashboard') }}" class="btn btn-primary">Daftar PPDB Sekarang</a>
+                @else
+                    <a href="#ppdb" class="btn btn-primary">Daftar PPDB Sekarang</a>
+                @endauth
                 <a href="#profil" class="btn btn-ghost">Kenali Kami</a>
             </div>
         </div>
 
         <div class="hero-stats">
-            <div class="stat"><span class="stat-num" data-target="520">0</span><span class="stat-label">Siswa Aktif</span></div>
-            <div class="stat"><span class="stat-num" data-target="32">0</span><span class="stat-label">Guru &amp; Staf</span></div>
-            <div class="stat"><span class="stat-num" data-target="18">0</span><span class="stat-label">Ruang Kelas</span></div>
-            <div class="stat"><span class="stat-num" data-target="45">0</span><span class="stat-label">Prestasi</span></div>
+            <div class="stat"><span class="stat-num" data-target="520">0</span><span class="stat-label">Siswa Aktif</span>
+            </div>
+            <div class="stat"><span class="stat-num" data-target="32">0</span><span class="stat-label">Guru &amp;
+                    Staf</span></div>
+            <div class="stat"><span class="stat-num" data-target="18">0</span><span class="stat-label">Ruang Kelas</span>
+            </div>
+            <div class="stat"><span class="stat-num" data-target="45">0</span><span class="stat-label">Prestasi</span>
+            </div>
         </div>
     </section>
 
@@ -30,20 +41,22 @@
         <div class="section-head">
             <span class="eyebrow">Tentang Kami</span>
             <h2>Profil Sekolah</h2>
-            <p>Mengenal lebih dekat sejarah, visi misi, struktur, dan fasilitas SDN Nusantara.</p>
+            <p>Mengenal lebih dekat sejarah, visi misi, struktur, dan fasilitas SDN Dadapsari.</p>
         </div>
 
         <div class="cards-grid">
             <article id="sejarah" class="card">
                 <div class="card-icon">📖</div>
                 <h3>Sejarah</h3>
-                <p>Berdiri sejak 1985, SDN Nusantara telah menjadi rumah belajar bagi ribuan lulusan yang tersebar di berbagai bidang.</p>
+                <p>Berdiri sejak 1985, SDN Dadapsari telah menjadi rumah belajar bagi ribuan lulusan yang tersebar di
+                    berbagai bidang.</p>
             </article>
 
             <article id="visi-misi" class="card">
                 <div class="card-icon">🎯</div>
                 <h3>Visi &amp; Misi</h3>
-                <p>Mewujudkan sekolah unggul yang menghasilkan peserta didik beriman, berprestasi, dan peduli lingkungan.</p>
+                <p>Mewujudkan sekolah unggul yang menghasilkan peserta didik beriman, berprestasi, dan peduli lingkungan.
+                </p>
             </article>
 
             <article id="struktur" class="card">
@@ -55,7 +68,8 @@
             <article id="fasilitas" class="card">
                 <div class="card-icon">🏫</div>
                 <h3>Fasilitas</h3>
-                <p>Perpustakaan, laboratorium komputer, lapangan olahraga, UKS, dan ruang kelas yang nyaman serta modern.</p>
+                <p>Perpustakaan, laboratorium komputer, lapangan olahraga, UKS, dan ruang kelas yang nyaman serta modern.
+                </p>
             </article>
         </div>
     </section>
@@ -113,7 +127,7 @@
             </article>
         </div>
     </section>
-
+//menambah fitur informasi terbaru
     {{-- ===================== INFORMASI ===================== --}}
     <section id="informasi" class="section section-alt">
         <div class="section-head">
@@ -145,7 +159,7 @@
                 <div class="news-body">
                     <span class="news-date">28 Mei 2026</span>
                     <h3>Juara 1 Lomba Cerdas Cermat</h3>
-                    <p>Tim SDN Nusantara meraih juara 1 tingkat kecamatan. Selamat!</p>
+                    <p>Tim SDN Dadapsari meraih juara 1 tingkat kecamatan. Selamat!</p>
                 </div>
             </article>
         </div>
@@ -154,9 +168,14 @@
         <div id="ppdb" class="ppdb-banner">
             <div>
                 <h3>PPDB Tahun Ajaran 2026/2027 Telah Dibuka!</h3>
-                <p>Bergabunglah bersama keluarga besar SDN Nusantara. Kuota terbatas, daftarkan putra-putri Anda sekarang.</p>
+                <p>Bergabunglah bersama keluarga besar SDN Dadapsari. Kuota terbatas, daftarkan putra-putri Anda sekarang.
+                </p>
             </div>
-            <a href="#kontak" class="btn btn-primary">Daftar Sekarang</a>
+            @auth
+                <a href="{{ route('admin.dashboard') }}" class="btn btn-primary">Daftar Sekarang</a>
+            @else
+                <a href="#kontak" class="btn btn-primary">Daftar Sekarang</a>
+            @endauth
         </div>
 
         {{-- Galeri --}}
@@ -180,9 +199,21 @@
 
         <div class="contact-wrap">
             <div class="contact-info">
-                <div class="contact-item"><span>📍</span><div><strong>Alamat</strong><p>Jl. Pendidikan No. 1, Nusantara</p></div></div>
-                <div class="contact-item"><span>📞</span><div><strong>Telepon</strong><p>(021) 123-4567</p></div></div>
-                <div class="contact-item"><span>✉️</span><div><strong>Email</strong><p>info@sdnnusantara.sch.id</p></div></div>
+                <div class="contact-item"><span>📍</span>
+                    <div><strong>Alamat</strong>
+                        <p>Jl. Pendidikan No. 1, Dadapsari</p>
+                    </div>
+                </div>
+                <div class="contact-item"><span>📞</span>
+                    <div><strong>Telepon</strong>
+                        <p>(021) 123-4567</p>
+                    </div>
+                </div>
+                <div class="contact-item"><span>✉️</span>
+                    <div><strong>Email</strong>
+                        <p>dadapsarisd@gmail.com</p>
+                    </div>
+                </div>
             </div>
 
             <form class="contact-form" onsubmit="return false;">
