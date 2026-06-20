@@ -264,10 +264,12 @@
                     <label for="email" class="form-label">Email atau Username</label>
                     <div class="input-icon-wrap">
                         <i class="bi bi-person-fill field-icon"></i>
-                        <input type="text" id="email" name="email"
-                            class="form-control @error('email') is-invalid @enderror"
-                            placeholder="adminsdndadapsari@gmail.com" value="{{ old('email') }}"
-                            autocomplete="username" required autofocus>
+                        <input type="email" id="email" name="email"
+                            class="form-control @error('email') is-invalid @enderror" placeholder="admin@sekolah.com"
+                            value="{{ old('email') }}" autocomplete="email" required autofocus>
+                        @error('email')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
@@ -283,6 +285,9 @@
                             <i class="bi bi-eye-fill" id="toggleIcon"></i>
                         </button>
                     </div>
+                    @error('password')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 {{-- Remember + Forgot --}}

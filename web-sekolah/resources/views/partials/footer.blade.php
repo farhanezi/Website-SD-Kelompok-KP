@@ -5,7 +5,8 @@
                 <span class="logo-mark">SD</span>
                 <span class="logo-text">SDN <strong>Nusantara</strong></span>
             </div>
-            <p>Membentuk generasi cerdas, berkarakter, dan berakhlak mulia melalui pendidikan dasar yang berkualitas.</p>
+            <p>Membentuk generasi cerdas, berkarakter, dan berakhlak mulia melalui pendidikan dasar yang berkualitas.
+            </p>
         </div>
 
         <div class="footer-col">
