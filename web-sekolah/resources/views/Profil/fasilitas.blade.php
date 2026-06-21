@@ -197,6 +197,82 @@
     }
     .sarpras-source a { color: var(--primary); }
 
+    /* ── MEDIA DIGITAL ── */
+    .media-subsection { margin-bottom: 2rem; }
+    .media-subtitle {
+        display: flex; align-items: center; gap: .6rem;
+        font-size: .95rem; font-weight: 700; color: var(--primary-dark);
+        margin-bottom: 1rem; padding-bottom: .5rem;
+        border-bottom: 2px solid var(--accent-soft);
+    }
+    .media-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1.25rem;
+    }
+    .ebook-card {
+        background: var(--white);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        border-top: 4px solid #6366f1;
+        transition: transform .25s ease, box-shadow .25s ease;
+        display: flex; flex-direction: column;
+    }
+    .ebook-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+    .ebook-cover {
+        height: 160px;
+        background: linear-gradient(135deg, #4f46e5, #7c3aed);
+        display: grid; place-items: center;
+        font-size: 3rem; position: relative; overflow: hidden;
+    }
+    .ebook-cover img { position:absolute;inset:0;width:100%;height:100%;object-fit:cover; }
+    .ebook-body { padding: 1rem 1.1rem; flex: 1; display: flex; flex-direction: column; }
+    .ebook-title { font-size: .9rem; font-weight: 700; color: var(--primary-dark); margin-bottom: .25rem; line-height: 1.35; }
+    .ebook-meta { font-size: .78rem; color: var(--muted); margin-bottom: .5rem; }
+    .ebook-tag { display: inline-block; background: #ede9fe; color: #5b21b6; font-size: .72rem; font-weight: 700; padding: .2rem .6rem; border-radius: 50px; margin-bottom: auto; }
+    .ebook-btn {
+        display: block; text-align: center; margin-top: .9rem;
+        padding: .5rem; border-radius: 8px; font-size: .82rem; font-weight: 700;
+        background: linear-gradient(135deg, #4f46e5, #7c3aed); color: #fff;
+        text-decoration: none; transition: opacity .2s;
+    }
+    .ebook-btn:hover { opacity: .88; color: #fff; }
+
+    .video-card {
+        background: var(--white);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        border-top: 4px solid #ef4444;
+        transition: transform .25s ease, box-shadow .25s ease;
+        display: flex; flex-direction: column;
+    }
+    .video-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+    .video-thumb {
+        height: 140px; position: relative; overflow: hidden;
+        background: #111; display: grid; place-items: center;
+    }
+    .video-thumb img { position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85; }
+    .video-thumb .play-btn {
+        position: relative; z-index: 1;
+        width: 48px; height: 48px; border-radius: 50%;
+        background: rgba(239,68,68,.9);
+        display: grid; place-items: center;
+        font-size: 1.3rem; color: #fff;
+    }
+    .video-thumb .no-thumb { font-size: 2.5rem; }
+    .video-body { padding: 1rem 1.1rem; flex: 1; display: flex; flex-direction: column; }
+    .video-title { font-size: .9rem; font-weight: 700; color: var(--primary-dark); margin-bottom: .25rem; line-height: 1.35; }
+    .video-meta { font-size: .78rem; color: var(--muted); margin-bottom: auto; }
+    .video-btn {
+        display: block; text-align: center; margin-top: .9rem;
+        padding: .5rem; border-radius: 8px; font-size: .82rem; font-weight: 700;
+        background: linear-gradient(135deg, #dc2626, #ef4444); color: #fff;
+        text-decoration: none; transition: opacity .2s;
+    }
+    .video-btn:hover { opacity: .88; color: #fff; }
+
     /* ── EMPTY ── */
     .empty-state {
         background: var(--white);
@@ -254,6 +330,10 @@
                class="fas-tab {{ $tab === 'sarpras' ? 'active' : '' }}">
                 🔧 Sarana &amp; Prasarana
             </a>
+            <a href="{{ route('profil.fasilitas', ['tab' => 'media-digital']) }}"
+               class="fas-tab {{ $tab === 'media-digital' ? 'active' : '' }}">
+                💻 Media Pembelajaran Digital
+            </a>
         </div>
     </div>
 
@@ -294,6 +374,96 @@
 
                 {{ $ruangKelas->links('partials.pagination') }}
             @endif
+        </div>
+    @endif
+
+    {{-- ===================== MEDIA PEMBELAJARAN DIGITAL ===================== --}}
+    @if ($tab === 'media-digital')
+        <div>
+            <div class="fas-section-title">
+                <span class="ico">💻</span> Media Pembelajaran Digital
+            </div>
+
+            {{-- E-Book --}}
+            <div class="media-subsection">
+                <div class="media-subtitle">📚 E-Book</div>
+
+                @if ($ebooks->isEmpty())
+                    <div class="empty-state">
+                        <div class="empty-icon">📚</div>
+                        <h3>E-Book belum tersedia</h3>
+                        <p>Koleksi e-book akan segera ditambahkan oleh admin.</p>
+                    </div>
+                @else
+                    <div class="media-grid">
+                        @foreach ($ebooks as $book)
+                            <div class="ebook-card">
+                                <div class="ebook-cover">
+                                    @if ($book->coverUrl())
+                                        <img src="{{ $book->coverUrl() }}" alt="{{ $book->judul }}">
+                                    @else
+                                        📖
+                                    @endif
+                                </div>
+                                <div class="ebook-body">
+                                    <div class="ebook-title">{{ $book->judul }}</div>
+                                    <div class="ebook-meta">
+                                        @if ($book->penulis) {{ $book->penulis }} @endif
+                                        @if ($book->penulis && $book->penerbit) · @endif
+                                        @if ($book->penerbit) {{ $book->penerbit }} @endif
+                                    </div>
+                                    @if ($book->mata_pelajaran)
+                                        <span class="ebook-tag">{{ $book->mata_pelajaran }}</span>
+                                    @endif
+                                    @if ($book->kelas)
+                                        <span class="ebook-tag" style="background:#dcfce7;color:#15803d;">{{ $book->kelas }}</span>
+                                    @endif
+                                    <a href="{{ $book->link_url }}" target="_blank" rel="noopener"
+                                       class="ebook-btn">📖 Buka E-Book</a>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+
+            {{-- Video Pembelajaran --}}
+            <div class="media-subsection">
+                <div class="media-subtitle">🎬 Video Pembelajaran</div>
+
+                @if ($videos->isEmpty())
+                    <div class="empty-state">
+                        <div class="empty-icon">🎬</div>
+                        <h3>Video belum tersedia</h3>
+                        <p>Video pembelajaran akan segera ditambahkan oleh admin.</p>
+                    </div>
+                @else
+                    <div class="media-grid">
+                        @foreach ($videos as $vid)
+                            <div class="video-card">
+                                <div class="video-thumb">
+                                    @if ($vid->thumbnailUrl())
+                                        <img src="{{ $vid->thumbnailUrl() }}" alt="{{ $vid->judul }}">
+                                        <div class="play-btn">▶</div>
+                                    @else
+                                        <div class="no-thumb">🎬</div>
+                                    @endif
+                                </div>
+                                <div class="video-body">
+                                    <div class="video-title">{{ $vid->judul }}</div>
+                                    <div class="video-meta">
+                                        @if ($vid->mata_pelajaran) {{ $vid->mata_pelajaran }} @endif
+                                        @if ($vid->mata_pelajaran && $vid->kelas) · @endif
+                                        @if ($vid->kelas) {{ $vid->kelas }} @endif
+                                    </div>
+                                    <a href="{{ $vid->url_video }}" target="_blank" rel="noopener"
+                                       class="video-btn">▶ Tonton Video</a>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
         </div>
     @endif
 
