@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\TataTertibController;
 use App\Http\Controllers\Admin\SarprasController;
 use App\Http\Controllers\Admin\RuangKelasController;
 use App\Http\Controllers\Admin\ProfilSettingController;
+use App\Http\Controllers\Admin\EBookController;
+use App\Http\Controllers\Admin\VideoPembelajaranController;
 use App\Http\Controllers\KesiswaanController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\Admin\AuthController;
@@ -281,6 +283,28 @@ Route::prefix('admin')->name('admin.')->middleware('nocache')->group(function ()
             Route::put('/{ruangKelas}',             [RuangKelasController::class, 'update'])->name('update');
             Route::delete('/{ruangKelas}',          [RuangKelasController::class, 'destroy'])->name('destroy');
             Route::patch('/{ruangKelas}/toggle',    [RuangKelasController::class, 'toggle'])->name('toggle');
+        });
+
+        // Profil — E-Book Pembelajaran
+        Route::prefix('ebook')->name('ebook.')->group(function () {
+            Route::get('/',                 [EBookController::class, 'index'])->name('index');
+            Route::get('/create',           [EBookController::class, 'create'])->name('create');
+            Route::post('/',                [EBookController::class, 'store'])->name('store');
+            Route::get('/{ebook}/edit',     [EBookController::class, 'edit'])->name('edit');
+            Route::put('/{ebook}',          [EBookController::class, 'update'])->name('update');
+            Route::delete('/{ebook}',       [EBookController::class, 'destroy'])->name('destroy');
+            Route::patch('/{ebook}/toggle', [EBookController::class, 'toggle'])->name('toggle');
+        });
+
+        // Profil — Video Pembelajaran
+        Route::prefix('video')->name('video.')->group(function () {
+            Route::get('/',                 [VideoPembelajaranController::class, 'index'])->name('index');
+            Route::get('/create',           [VideoPembelajaranController::class, 'create'])->name('create');
+            Route::post('/',                [VideoPembelajaranController::class, 'store'])->name('store');
+            Route::get('/{video}/edit',     [VideoPembelajaranController::class, 'edit'])->name('edit');
+            Route::put('/{video}',          [VideoPembelajaranController::class, 'update'])->name('update');
+            Route::delete('/{video}',       [VideoPembelajaranController::class, 'destroy'])->name('destroy');
+            Route::patch('/{video}/toggle', [VideoPembelajaranController::class, 'toggle'])->name('toggle');
         });
 
         // Kesiswaan — Tata Tertib

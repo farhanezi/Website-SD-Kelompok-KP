@@ -114,7 +114,7 @@
         </div>
 
         {{-- Ekstrakurikuler preview — 3 dari DB, klik → halaman Ekstrakurikuler --}}
-        <div id="ekstrakurikuler" style="margin-bottom:2rem;">
+        <div id="ekstrakurikuler" style="margin-bottom:2rem;background:var(--white);border:1px solid #e2e8f0;border-radius:var(--radius);padding:1.25rem 1.5rem;">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
                 <span style="font-weight:700;color:var(--primary-dark);font-size:1rem;">⚽ Ekstrakurikuler</span>
                 <a href="{{ route('kesiswaan.ekstrakurikuler') }}"
@@ -157,7 +157,7 @@
         </div>
 
         {{-- Prestasi preview — 3 terbaru dari DB, klik → halaman Prestasi --}}
-        <div id="prestasi" style="margin-bottom:2rem;">
+        <div id="prestasi" style="margin-bottom:2rem;background:var(--white);border:1px solid #e2e8f0;border-radius:var(--radius);padding:1.25rem 1.5rem;">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
                 <span style="font-weight:700;color:var(--primary-dark);font-size:1rem;">🏆 Prestasi Terbaru</span>
                 <a href="{{ route('kesiswaan.prestasi') }}"
@@ -228,74 +228,93 @@
         </div>
 
         {{-- Berita — 3 terbaru, klik → halaman Berita & Pengumuman --}}
-        <div id="berita" class="news-grid">
-            @forelse ($berita as $item)
-                <a href="{{ route('informasi.index') }}" class="news-card"
-                   style="text-decoration:none;color:inherit;display:block;">
-                    {{-- position:relative + overflow:hidden agar gambar terkurung di dalam thumb --}}
-                    <div class="news-thumb"
-                         style="--c1:#1a5f7a;--c2:#57c5b6;position:relative;overflow:hidden;">
-                        @if ($item->gambar)
-                            <img src="{{ asset('storage/' . $item->gambar) }}"
-                                 alt="{{ $item->judul }}"
-                                 style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-                        @else
-                            <span>📰</span>
-                        @endif
-                    </div>
-                    <div class="news-body">
-                        @if ($item->tanggal)
-                            <span class="news-date">{{ $item->tanggal->translatedFormat('d F Y') }}</span>
-                        @endif
-                        <h3>{{ $item->judul }}</h3>
-                        <p>{{ $item->preview(100) }}</p>
-                    </div>
-                </a>
-            @empty
-                <article class="news-card">
-                    <div class="news-thumb" style="--c1:#1a5f7a;--c2:#57c5b6;"><span>📰</span></div>
-                    <div class="news-body">
-                        <span class="news-date">—</span>
-                        <h3>Belum ada berita</h3>
-                        <p>Berita terbaru sekolah akan tampil di sini.</p>
-                    </div>
-                </article>
-            @endforelse
+        <div id="berita" style="margin-bottom:2rem;background:var(--bg);border:1px solid #e2e8f0;border-radius:var(--radius);padding:1.25rem 1.5rem;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+                <span style="font-weight:700;color:var(--primary-dark);font-size:1rem;">📰 Berita Terbaru</span>
+                <a href="{{ route('informasi.index') }}"
+                   style="font-size:.82rem;font-weight:600;color:var(--accent);text-decoration:none;">Lihat Semua →</a>
+            </div>
+            <div class="news-grid">
+                @forelse ($berita as $item)
+                    <a href="{{ route('informasi.index') }}" class="news-card"
+                       style="text-decoration:none;color:inherit;display:block;">
+                        <div class="news-thumb"
+                             style="--c1:#1a5f7a;--c2:#57c5b6;position:relative;overflow:hidden;">
+                            @if ($item->gambar)
+                                <img src="{{ asset('storage/' . $item->gambar) }}"
+                                     alt="{{ $item->judul }}"
+                                     style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                            @else
+                                <span>📰</span>
+                            @endif
+                        </div>
+                        <div class="news-body">
+                            @if ($item->tanggal)
+                                <span class="news-date">{{ $item->tanggal->translatedFormat('d F Y') }}</span>
+                            @endif
+                            <h3>{{ $item->judul }}</h3>
+                            <p>{{ $item->preview(100) }}</p>
+                        </div>
+                    </a>
+                @empty
+                    <article class="news-card">
+                        <div class="news-thumb" style="--c1:#1a5f7a;--c2:#57c5b6;"><span>📰</span></div>
+                        <div class="news-body">
+                            <span class="news-date">—</span>
+                            <h3>Belum ada berita</h3>
+                            <p>Berita terbaru sekolah akan tampil di sini.</p>
+                        </div>
+                    </article>
+                @endforelse
+            </div>
         </div>
 
         {{-- PPDB Banner — dari DB, klik → halaman PPDB --}}
-        <div id="ppdb" class="ppdb-banner">
-            <div>
-                <h3>PPDB Tahun Ajaran {{ $ppdb->tahun_ajaran }}
-                    {{ $ppdb->is_open ? 'Telah Dibuka!' : '' }}</h3>
-                <p>{{ $ppdb->pengumuman }}</p>
+        <div id="ppdb" style="margin-bottom:2rem;background:var(--bg);border:1px solid #e2e8f0;border-radius:var(--radius);padding:1.25rem 1.5rem;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+                <span style="font-weight:700;color:var(--primary-dark);font-size:1rem;">🎓 Pendaftaran Siswa Baru (PPDB)</span>
+                <a href="{{ route('ppdb.index') }}"
+                   style="font-size:.82rem;font-weight:600;color:var(--accent);text-decoration:none;">Lihat Info →</a>
             </div>
-            <a href="{{ route('ppdb.index') }}" class="btn btn-primary">
-                {{ $ppdb->is_open ? 'Daftar Sekarang' : 'Lihat Info PPDB' }}
-            </a>
+            <div class="ppdb-banner">
+                <div>
+                    <h3>PPDB Tahun Ajaran {{ $ppdb->tahun_ajaran }}
+                        {{ $ppdb->is_open ? 'Telah Dibuka!' : '' }}</h3>
+                    <p>{{ $ppdb->pengumuman }}</p>
+                </div>
+                <a href="{{ route('ppdb.index') }}" class="btn btn-primary">
+                    {{ $ppdb->is_open ? 'Daftar Sekarang' : 'Lihat Info PPDB' }}
+                </a>
+            </div>
         </div>
 
         {{-- Galeri — preview dari DB, klik → halaman Galeri --}}
-        <div id="galeri" class="gallery">
-            @forelse ($galeriPreview as $foto)
-                {{-- position:relative + overflow:hidden agar gambar terkurung di dalam sel --}}
-                <a href="{{ route('informasi.galeri') }}" class="gallery-item"
-                   style="--c1:#1a5f7a;--c2:#57c5b6;text-decoration:none;
-                          position:relative;overflow:hidden;display:grid;place-items:center;">
-                    @if ($foto->gambarUrl())
-                        <img src="{{ $foto->gambarUrl() }}"
-                             alt="{{ $foto->judul }}"
-                             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-                    @else
-                        <span style="position:relative;z-index:1;">📸</span>
-                    @endif
-                </a>
-            @empty
-                @foreach (['📸','🎨','🎶','⚽','🔬','📚'] as $ikon)
+        <div id="galeri" style="background:var(--bg);border:1px solid #e2e8f0;border-radius:var(--radius);padding:1.25rem 1.5rem;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+                <span style="font-weight:700;color:var(--primary-dark);font-size:1rem;">📷 Galeri Kegiatan</span>
+                <a href="{{ route('informasi.galeri') }}"
+                   style="font-size:.82rem;font-weight:600;color:var(--accent);text-decoration:none;">Lihat Semua →</a>
+            </div>
+            <div class="gallery">
+                @forelse ($galeriPreview as $foto)
                     <a href="{{ route('informasi.galeri') }}" class="gallery-item"
-                       style="--c1:#1a5f7a;--c2:#57c5b6;text-decoration:none;">{{ $ikon }}</a>
-                @endforeach
-            @endforelse
+                       style="--c1:#1a5f7a;--c2:#57c5b6;text-decoration:none;
+                              position:relative;overflow:hidden;display:grid;place-items:center;">
+                        @if ($foto->gambarUrl())
+                            <img src="{{ $foto->gambarUrl() }}"
+                                 alt="{{ $foto->judul }}"
+                                 style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                        @else
+                            <span style="position:relative;z-index:1;">📸</span>
+                        @endif
+                    </a>
+                @empty
+                    @foreach (['📸','🎨','🎶','⚽','🔬','📚'] as $ikon)
+                        <a href="{{ route('informasi.galeri') }}" class="gallery-item"
+                           style="--c1:#1a5f7a;--c2:#57c5b6;text-decoration:none;">{{ $ikon }}</a>
+                    @endforeach
+                @endforelse
+            </div>
         </div>
     </section>
 

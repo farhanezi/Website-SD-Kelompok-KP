@@ -83,17 +83,11 @@
             padding: .75rem 0;
             flex: 1;
             overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(255, 255, 255, .15) transparent;
+            scrollbar-width: none;
         }
 
         .sidebar-nav::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .sidebar-nav::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, .15);
-            border-radius: 4px;
+            display: none;
         }
 
         .nav-divider {
@@ -328,6 +322,45 @@
 
         .stat-delta.flat {
             color: #94a3b8;
+        }
+
+        /* ── FORM CARDS (digunakan di semua halaman form CRUD) ── */
+        .form-card {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, .06);
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-card-header {
+            padding: .9rem 1.4rem;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+        }
+
+        .form-card-header h6 {
+            margin: 0;
+            font-size: .88rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .form-card-body {
+            padding: 1.25rem 1.5rem;
+        }
+
+        .hico {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: var(--accent-soft);
+            display: grid;
+            place-items: center;
+            font-size: .85rem;
+            flex-shrink: 0;
         }
 
         /* ── SECTION CARDS ── */

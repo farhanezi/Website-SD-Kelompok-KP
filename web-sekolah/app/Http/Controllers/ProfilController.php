@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\SaranaPrasarana;
 use App\Models\RuangKelas;
 use App\Models\ProfilSetting;
+use App\Models\EBook;
+use App\Models\VideoPembelajaran;
 use Illuminate\Http\Request;
 
 class ProfilController extends Controller
@@ -29,14 +31,16 @@ class ProfilController extends Controller
 
     public function fasilitas(Request $request)
     {
-        $tab = in_array($request->input('tab'), ['ruang-kelas', 'sarpras'])
+        $tab = in_array($request->input('tab'), ['ruang-kelas', 'sarpras', 'media-digital'])
             ? $request->input('tab')
             : 'ruang-kelas';
 
-        $ruangKelas  = null;
-        $sarpras     = null;
-        $totalGanjil = 0;
-        $totalGenap  = 0;
+        $ruangKelas   = null;
+        $sarpras      = null;
+        $totalGanjil  = 0;
+        $totalGenap   = 0;
+        $ebooks       = null;
+        $videos       = null;
 
         if ($tab === 'ruang-kelas') {
             $ruangKelas = RuangKelas::where('is_active', true)
@@ -44,7 +48,7 @@ class ProfilController extends Controller
                 ->orderBy('id')
                 ->paginate(8)
                 ->withQueryString();
-        } else {
+        } elseif ($tab === 'sarpras') {
             $sarpras = SaranaPrasarana::where('is_active', true)
                 ->orderBy('urutan')
                 ->orderBy('id')
@@ -54,8 +58,17 @@ class ProfilController extends Controller
             // Total keseluruhan untuk baris tfoot (bukan hanya halaman aktif).
             $totalGanjil = SaranaPrasarana::where('is_active', true)->sum('jumlah_ganjil');
             $totalGenap  = SaranaPrasarana::where('is_active', true)->sum('jumlah_genap');
+        } else {
+            $ebooks = EBook::where('is_active', true)
+                ->orderBy('urutan')->orderBy('id')
+                ->get();
+            $videos = VideoPembelajaran::where('is_active', true)
+                ->orderBy('urutan')->orderBy('id')
+                ->get();
         }
 
-        return view('Profil.fasilitas', compact('sarpras', 'ruangKelas', 'tab', 'totalGanjil', 'totalGenap'));
+        return view('Profil.fasilitas', compact(
+            'sarpras', 'ruangKelas', 'tab', 'totalGanjil', 'totalGenap', 'ebooks', 'videos'
+        ));
     }
 }
