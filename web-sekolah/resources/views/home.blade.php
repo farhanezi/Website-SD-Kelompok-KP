@@ -110,21 +110,21 @@
         </div>
 
         <div class="cards-grid cards-3">
-            <article id="ekstrakurikuler" class="card">
+            <a href="{{ route('kesiswaan.ekstrakurikuler') }}" id="ekstrakurikuler" class="card">
                 <div class="card-icon">⚽</div>
                 <h3>Ekstrakurikuler</h3>
                 <p>Pramuka, futsal, seni tari, paduan suara, dan robotik untuk menyalurkan bakat siswa.</p>
-            </article>
-            <article id="prestasi" class="card">
+            </a>
+            <a href="{{ route('kesiswaan.prestasi') }}" id="prestasi" class="card">
                 <div class="card-icon">🏆</div>
                 <h3>Prestasi Siswa</h3>
                 <p>Berbagai juara olimpiade, lomba seni, dan kompetisi olahraga tingkat kota hingga nasional.</p>
-            </article>
-            <article id="tata-tertib" class="card">
+            </a>
+            <a href="{{ route('kesiswaan.tata-tertib') }}" id="tata-tertib" class="card">
                 <div class="card-icon">📋</div>
                 <h3>Tata Tertib</h3>
                 <p>Aturan sekolah yang menumbuhkan kedisiplinan, tanggung jawab, dan akhlak mulia.</p>
-            </article>
+            </a>
         </div>
     </section>
 
