@@ -43,7 +43,10 @@
             <h2>Profil Sekolah</h2>
             <p>Mengenal lebih dekat sejarah, visi misi, transparansi dana, dan fasilitas SDN Dadapsari.</p>
         </div>
+    <!-- tes -->
 
+
+    
         <div class="cards-grid">
             <a href="{{ route('profil.sejarah') }}" id="sejarah" class="card"
                style="text-decoration:none;color:inherit;display:block;">
