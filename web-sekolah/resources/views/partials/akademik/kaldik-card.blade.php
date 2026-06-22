@@ -85,12 +85,18 @@
     <div class="content-card">
         <div class="content-card-head">{{ $judulKaldik }}</div>
         <ul class="kaldik-list">
-            @foreach ($kaldik as $i => $item)
+            @forelse ($kaldik as $i => $item)
                 <li class="kaldik-item">
-                    <span>{{ $i + 1 }}. {{ $item['judul'] }}</span>
-                    <a class="kaldik-btn" href="{{ $item['link'] ?? '#' }}" target="_blank" rel="noopener">Klik Disini</a>
+                    <span>{{ $i + 1 }}. KALDIK TP {{ $item->tahun_ajaran }}</span>
+                    <a class="kaldik-btn" href="{{ $item->fileUrl() }}" target="_blank" rel="noopener">
+                        Lihat Kalender
+                    </a>
                 </li>
-            @endforeach
+            @empty
+                <li style="padding:1.25rem;text-align:center;color:#64748b;">
+                    Kalender akademik belum tersedia.
+                </li>
+            @endforelse
         </ul>
     </div>
 </div>

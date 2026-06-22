@@ -17,8 +17,10 @@ use App\Http\Controllers\Admin\RuangKelasController;
 use App\Http\Controllers\Admin\ProfilSettingController;
 use App\Http\Controllers\Admin\EBookController;
 use App\Http\Controllers\Admin\VideoPembelajaranController;
+use App\Http\Controllers\Admin\KalenderAkademikController;
 use App\Http\Controllers\KesiswaanController;
 use App\Http\Controllers\InformasiController;
+use App\Http\Controllers\AkademikController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Models\PpdbSetting;
 
@@ -37,17 +39,7 @@ Route::prefix('profil')->name('profil.')->group(function () {
 Route::prefix('akademik')->name('akademik.')->group(function () {
     Route::get('kalender', function () {
         // Data kalender akademik — nantinya bisa diambil dari database lewat dashboard admin.
-        $kaldik = [
-            ['judul' => 'KALDIK TP 2021/2022', 'link' => '#'],
-            ['judul' => 'KALDIK TP 2020/2021', 'link' => '#'],
-            ['judul' => 'KALDIK TP 2019/2020', 'link' => '#'],
-            ['judul' => 'KALDIK TP 2018/2019', 'link' => '#'],
-        ];
-
-        return view('Akademik.kalender_akademik', [
-            'judulKaldik' => 'KALDIK KOTA SEMARANG',
-            'kaldik' => $kaldik,
-        ]);
+        return app(AkademikController::class)->kalender();
     })->name('kalender');
 
     Route::get('kurikulum', function () {
@@ -201,6 +193,17 @@ Route::prefix('admin')->name('admin.')->middleware('nocache')->group(function ()
 
     Route::middleware('auth')->group(function () {
         Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+        // Akademik - Kalender Akademik
+        Route::prefix('kalender-akademik')->name('kalender-akademik.')->group(function () {
+            Route::get('/',                            [KalenderAkademikController::class, 'index'])->name('index');
+            Route::get('/create',                     [KalenderAkademikController::class, 'create'])->name('create');
+            Route::post('/',                          [KalenderAkademikController::class, 'store'])->name('store');
+            Route::get('/{kalenderAkademik}/edit',    [KalenderAkademikController::class, 'edit'])->name('edit');
+            Route::put('/{kalenderAkademik}',         [KalenderAkademikController::class, 'update'])->name('update');
+            Route::delete('/{kalenderAkademik}',      [KalenderAkademikController::class, 'destroy'])->name('destroy');
+            Route::patch('/{kalenderAkademik}/toggle',[KalenderAkademikController::class, 'toggle'])->name('toggle');
+        });
 
         // Profil — Konten (Sejarah / Visi Misi / Dana BOS)
         Route::get('profil-setting',  [ProfilSettingController::class, 'edit'])->name('profil-setting.edit');

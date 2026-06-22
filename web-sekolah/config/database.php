@@ -47,7 +47,9 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL', env('DB_URL')),
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '127.0.0.1') . (env('DB_PGSQL_OPTIONS')
+                ? ";options='" . env('DB_PGSQL_OPTIONS') . "'"
+                : ''),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'laravel'),
             'username' => env('DB_USERNAME', 'root'),
@@ -86,7 +88,9 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '127.0.0.1') . (env('DB_PGSQL_OPTIONS')
+                ? ";options='" . env('DB_PGSQL_OPTIONS') . "'"
+                : ''),
             'port' => env('DB_PORT', '5432'),
             'database' => env('DB_DATABASE', 'laravel'),
             'username' => env('DB_USERNAME', 'root'),
@@ -96,7 +100,7 @@ return [
             'prefix_indexes' => true,
             'search_path' => 'public',
             'sslmode' => env('DB_SSLMODE', 'prefer'),
-            'options' => env('DB_PGSQL_OPTIONS'),
+            'options' => [],
         ],
 
         'sqlsrv' => [
