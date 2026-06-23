@@ -360,13 +360,29 @@
                 </div>
             </div>
 
-            <form class="contact-form" onsubmit="return false;">
+            <form class="contact-form" method="POST" action="{{ route('kontak.store') }}">
+                @csrf
+
+                @if (session('kontak_success'))
+                    <div style="background:#dcfce7;color:#15803d;border:1px solid #86efac;border-radius:10px;
+                                padding:.75rem 1rem;font-size:.85rem;margin-bottom:.25rem;">
+                        ✅ {{ session('kontak_success') }}
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div style="background:#fee2e2;color:#b91c1c;border:1px solid #fca5a5;border-radius:10px;
+                                padding:.75rem 1rem;font-size:.85rem;margin-bottom:.25rem;">
+                        {{ $errors->first() }}
+                    </div>
+                @endif
+
                 <div class="form-row">
-                    <input type="text" placeholder="Nama Lengkap" required>
-                    <input type="email" placeholder="Alamat Email" required>
+                    <input type="text" name="nama" value="{{ old('nama') }}" placeholder="Nama Lengkap" required maxlength="150">
+                    <input type="email" name="email" value="{{ old('email') }}" placeholder="Alamat Email" required maxlength="191">
                 </div>
-                <input type="text" placeholder="Subjek">
-                <textarea rows="5" placeholder="Tulis pesan Anda..." required></textarea>
+                <input type="text" name="subjek" value="{{ old('subjek') }}" placeholder="Subjek" maxlength="200">
+                <textarea name="pesan" rows="5" placeholder="Tulis pesan Anda..." required maxlength="5000">{{ old('pesan') }}</textarea>
                 <button type="submit" class="btn btn-primary">Kirim Pesan</button>
             </form>
         </div>

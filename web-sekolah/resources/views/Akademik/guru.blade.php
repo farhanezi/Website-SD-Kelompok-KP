@@ -15,7 +15,10 @@
     .page-header h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; margin: .4rem 0 .6rem; }
     .page-header p { max-width: 640px; margin: 0 auto; color: rgba(255, 255, 255, .8); }
 
-    .guru-wrap { max-width: 1180px; margin: -3rem auto 4rem; padding: 0 1.25rem; }
+    .guru-wrap { max-width: 1180px; margin: 2.5rem auto 4rem; padding: 0 1.25rem; }
+    /* Tarik konten naik agar kartu sorotan Kepala Sekolah menumpuk di header —
+       hanya saat kartu kepala memang ada, supaya judul seksi tak menabrak header. */
+    .guru-wrap.has-kepala { margin-top: -3rem; }
 
     /* ── Foto placeholder (silhouette) ── */
     .guru-ph {
@@ -131,7 +134,7 @@
         <p>Tenaga pendidik dan kependidikan SDN Dadapsari Semarang yang berdedikasi membimbing dan melayani peserta didik.</p>
     </section>
 
-    <div class="guru-wrap">
+    <div class="guru-wrap {{ $kepala ? 'has-kepala' : '' }}">
 
         @if (! $kepala && $guru->isEmpty())
             <div class="empty-state">

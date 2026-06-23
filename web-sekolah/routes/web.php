@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\PengumumanController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\PpdbController;
+use App\Http\Controllers\PpdbController as PublicPpdbController;
 use App\Http\Controllers\Admin\EkstrakurikulerController;
 use App\Http\Controllers\Admin\PrestasiController;
 use App\Http\Controllers\Admin\TataTertibController;
@@ -20,17 +21,21 @@ use App\Http\Controllers\Admin\VideoPembelajaranController;
 use App\Http\Controllers\Admin\KalenderAkademikController;
 use App\Http\Controllers\Admin\KurikulumController;
 use App\Http\Controllers\Admin\GuruController;
+use App\Http\Controllers\Admin\PesanController;
 use App\Http\Controllers\KesiswaanController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\AkademikController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\ProfileController;
-use App\Models\PpdbSetting;
 
 // Semua route publik — admin yang masih login diarahkan kembali ke dashboard
 Route::middleware('redirect.admin')->group(function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Form kontak publik → simpan sebagai Pesan (inbox admin)
+Route::post('kontak', [ContactController::class, 'store'])->name('kontak.store');
 
 Route::prefix('profil')->name('profil.')->group(function () {
     Route::get('sejarah',              [ProfilController::class, 'sejarah'])->name('sejarah');
@@ -66,72 +71,7 @@ Route::prefix('informasi')->name('informasi.')->group(function () {
 });
 
 Route::prefix('ppdb')->name('ppdb.')->group(function () {
-    Route::get('/', function () {
-        $ppdb = PpdbSetting::getData();
-
-        // 4 poin utama PPDB — template panduan statis.
-        $poin = [
-            [
-                'key' => 'pendaftaran',
-                'icon' => '📝',
-                'judul' => 'Pendaftaran Siswa Baru',
-                'deskripsi' => 'Daftarkan calon siswa baru secara online melalui formulir pendaftaran resmi sekolah.',
-                'tipe' => 'link',
-                'cta' => 'Daftar Sekarang',
-                'link' => '#', // ganti dengan tautan formulir pendaftaran online
-            ],
-            [
-                'key' => 'pra-pendaftaran',
-                'icon' => '📋',
-                'judul' => 'Panduan Pra Pendaftaran',
-                'deskripsi' => 'Hal-hal yang perlu disiapkan calon siswa dan orang tua sebelum melakukan pendaftaran.',
-                'tipe' => 'panduan',
-                'cta' => 'Lihat Panduan',
-                'langkah' => [
-                    'Siapkan Kartu Keluarga (KK) dan Akta Kelahiran calon siswa.',
-                    'Pastikan usia calon siswa memenuhi syarat minimal sesuai ketentuan.',
-                    'Siapkan pas foto terbaru calon siswa ukuran 3×4.',
-                    'Siapkan alamat email aktif untuk menerima informasi pendaftaran.',
-                    'Pelajari jadwal dan tahapan PPDB pada pengumuman resmi sekolah.',
-                ],
-            ],
-            [
-                'key' => 'pendaftaran-siswa',
-                'icon' => '🖊️',
-                'judul' => 'Panduan Pendaftaran',
-                'deskripsi' => 'Langkah-langkah mengisi dan mengirimkan formulir pendaftaran siswa baru.',
-                'tipe' => 'panduan',
-                'cta' => 'Lihat Panduan',
-                'langkah' => [
-                    'Buka tautan formulir pendaftaran siswa baru.',
-                    'Isi data diri calon siswa dan orang tua/wali dengan lengkap dan benar.',
-                    'Unggah berkas persyaratan (KK, Akta Kelahiran, pas foto).',
-                    'Periksa kembali seluruh data sebelum dikirim.',
-                    'Kirim formulir dan simpan bukti pendaftaran.',
-                ],
-            ],
-            [
-                'key' => 'daftar-ulang',
-                'icon' => '✅',
-                'judul' => 'Daftar Ulang',
-                'deskripsi' => 'Panduan daftar ulang bagi calon siswa yang dinyatakan diterima.',
-                'tipe' => 'panduan',
-                'cta' => 'Lihat Panduan',
-                'langkah' => [
-                    'Pastikan calon siswa dinyatakan diterima pada pengumuman PPDB.',
-                    'Lengkapi dan serahkan berkas daftar ulang sesuai ketentuan sekolah.',
-                    'Lakukan daftar ulang pada rentang waktu yang telah ditentukan.',
-                    'Simpan bukti daftar ulang sebagai tanda telah resmi menjadi siswa.',
-                ],
-            ],
-        ];
-
-        return view('ppdb.index', [
-            'judul' => 'Penerimaan Peserta Didik Baru',
-            'poin'  => $poin,
-            'ppdb'  => $ppdb,
-        ]);
-    })->name('index');
+    Route::get('/', [PublicPpdbController::class, 'index'])->name('index');
 });
 
 }); // end redirect.admin group
@@ -179,6 +119,15 @@ Route::prefix('admin')->name('admin.')->middleware('nocache')->group(function ()
         // Profil — Konten (Sejarah / Visi Misi / Dana BOS)
         Route::get('profil-setting',  [ProfilSettingController::class, 'edit'])->name('profil-setting.edit');
         Route::put('profil-setting',  [ProfilSettingController::class, 'update'])->name('profil-setting.update');
+
+        // Pesan Masuk (dari form kontak publik)
+        Route::prefix('pesan')->name('pesan.')->group(function () {
+            Route::get('/',                 [PesanController::class, 'index'])->name('index');
+            Route::patch('/baca-semua',     [PesanController::class, 'markAllRead'])->name('read-all');
+            Route::get('/{pesan}',          [PesanController::class, 'show'])->name('show');
+            Route::patch('/{pesan}/toggle', [PesanController::class, 'toggle'])->name('toggle');
+            Route::delete('/{pesan}',       [PesanController::class, 'destroy'])->name('destroy');
+        });
 
         // Kontak & Footer
         Route::get('kontak', [KontakController::class, 'edit'])->name('kontak');

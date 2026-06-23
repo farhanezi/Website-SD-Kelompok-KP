@@ -627,13 +627,14 @@
             </div>
 
             <div class="topbar-right">
-                <div class="position-relative">
-                    <button class="btn btn-light btn-sm rounded-circle position-relative" title="Notifikasi">
-                        <i class="bi bi-bell-fill text-secondary"></i>
+                <a href="{{ route('admin.pesan.index') }}"
+                   class="btn btn-light btn-sm rounded-circle position-relative" title="Pesan Masuk">
+                    <i class="bi bi-bell-fill text-secondary"></i>
+                    @if (($unreadPesan ?? 0) > 0)
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                            style="font-size:.55rem;">3</span>
-                    </button>
-                </div>
+                            style="font-size:.55rem;">{{ $unreadPesan > 99 ? '99+' : $unreadPesan }}</span>
+                    @endif
+                </a>
                 @php($admin = auth()->user())
                 <div class="dropdown">
                     <button class="profile-trigger" type="button" data-bs-toggle="dropdown" aria-expanded="false">

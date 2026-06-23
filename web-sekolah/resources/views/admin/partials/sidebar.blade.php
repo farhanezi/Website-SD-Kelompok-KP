@@ -149,6 +149,16 @@
 
         <div class="nav-divider"></div>
 
+        {{-- Pesan Masuk (dari form kontak publik) --}}
+        <a href="{{ route('admin.pesan.index') }}"
+            class="sidebar-link {{ request()->routeIs('admin.pesan.*') ? 'active' : '' }}">
+            <i class="bi bi-envelope-fill"></i>
+            <span>Pesan Masuk</span>
+            @if (($unreadPesan ?? 0) > 0)
+                <span class="badge rounded-pill bg-danger ms-auto" style="font-size:.6rem;">{{ $unreadPesan > 99 ? '99+' : $unreadPesan }}</span>
+            @endif
+        </a>
+
         {{-- Kontak & Footer --}}
         <a href="{{ route('admin.kontak') }}"
             class="sidebar-link {{ request()->routeIs('admin.kontak') ? 'active' : '' }}">
