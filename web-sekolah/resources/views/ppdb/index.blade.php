@@ -248,6 +248,29 @@
     ])
 
     <div class="ppdb-wrap">
+
+        {{-- Status PPDB — diatur lewat dashboard admin (PpdbSetting) --}}
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1.25rem;justify-content:center;
+                    background:var(--white);border:1px solid #eef1f5;border-left:4px solid {{ $ppdb->is_open ? '#16a34a' : '#dc2626' }};
+                    border-radius:var(--radius);box-shadow:var(--shadow);padding:1rem 1.5rem;margin-bottom:2rem;">
+            <span style="display:inline-flex;align-items:center;gap:.45rem;font-weight:700;font-size:.85rem;
+                         color:{{ $ppdb->is_open ? '#15803d' : '#b91c1c' }};
+                         background:{{ $ppdb->is_open ? '#dcfce7' : '#fee2e2' }};
+                         padding:.35rem .9rem;border-radius:50px;">
+                <span style="width:.5rem;height:.5rem;border-radius:50%;background:currentColor;"></span>
+                {{ $ppdb->is_open ? 'Pendaftaran Dibuka' : 'Pendaftaran Ditutup' }}
+            </span>
+            <strong style="color:var(--primary-dark);font-size:.92rem;">Tahun Ajaran {{ $ppdb->tahun_ajaran }}</strong>
+            @if ($ppdb->tanggal_buka || $ppdb->tanggal_tutup)
+                <span style="color:var(--muted);font-size:.85rem;">
+                    🗓️ Periode:
+                    {{ $ppdb->tanggal_buka ? $ppdb->tanggal_buka->translatedFormat('d M Y') : '—' }}
+                    s/d
+                    {{ $ppdb->tanggal_tutup ? $ppdb->tanggal_tutup->translatedFormat('d M Y') : '—' }}
+                </span>
+            @endif
+        </div>
+
         <div class="ppdb-grid">
             @foreach ($poin as $item)
                 <article class="ppdb-card {{ $item['tipe'] === 'link' ? 'featured' : '' }}">
@@ -256,8 +279,17 @@
                     <p>{{ $item['deskripsi'] }}</p>
 
                     @if ($item['tipe'] === 'link')
-                        <a class="ppdb-btn ppdb-btn-primary" href="{{ $item['link'] ?? '#' }}" target="_blank"
-                            rel="noopener">{{ $item['cta'] }} →</a>
+                        @php $bisaDaftar = $ppdb->is_open && !empty($item['link']) && $item['link'] !== '#'; @endphp
+                        @if ($bisaDaftar)
+                            <a class="ppdb-btn ppdb-btn-primary" href="{{ $item['link'] }}" target="_blank"
+                                rel="noopener">{{ $item['cta'] }} →</a>
+                        @else
+                            <span class="ppdb-btn ppdb-btn-primary" aria-disabled="true"
+                                  style="opacity:.55;cursor:not-allowed;"
+                                  title="{{ $ppdb->is_open ? 'Tautan pendaftaran belum diatur admin' : 'Pendaftaran belum dibuka' }}">
+                                {{ $ppdb->is_open ? 'Link Belum Tersedia' : 'Belum Dibuka' }}
+                            </span>
+                        @endif
                     @else
                         <button type="button" class="ppdb-btn ppdb-btn-outline" data-ppdb="{{ $item['key'] }}"
                             aria-haspopup="dialog">{{ $item['cta'] }}</button>

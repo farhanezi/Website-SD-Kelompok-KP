@@ -71,7 +71,6 @@
             <div class="section-card h-100">
                 <div class="section-header">
                     <h6><i class="bi bi-clock-history me-2 text-primary"></i>Aktivitas Terbaru</h6>
-                    <a href="#" class="btn btn-sm btn-outline-secondary" style="font-size:.75rem;">Lihat Semua</a>
                 </div>
                 <table class="table table-hover activity-table mb-0">
                     <thead>

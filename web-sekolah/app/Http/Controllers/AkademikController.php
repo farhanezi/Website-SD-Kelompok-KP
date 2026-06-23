@@ -4,9 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\KalenderAkademik;
 use App\Models\Guru;
+use App\Models\KurikulumSetting;
 
 class AkademikController extends Controller
 {
+    public function kurikulum()
+    {
+        $setting = KurikulumSetting::getData();
+
+        return view('Akademik.kurikulum', [
+            'judulKurikulum' => $setting->judul,
+            'blok' => $setting->blok,
+        ]);
+    }
+
     public function kalender()
     {
         $kaldik = KalenderAkademik::query()
