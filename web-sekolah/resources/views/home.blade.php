@@ -87,21 +87,24 @@
         </div>
 
         <div class="cards-grid cards-3">
-            <article id="kurikulum" class="card">
+            <a href="{{ route('akademik.kurikulum') }}" id="kurikulum" class="card"
+               style="text-decoration:none;color:inherit;display:block;">
                 <div class="card-icon">📚</div>
                 <h3>Kurikulum</h3>
                 <p>Menerapkan Kurikulum Merdeka yang berfokus pada pengembangan karakter dan kompetensi siswa.</p>
-            </article>
-            <article id="kalender" class="card">
+            </a>
+            <a href="{{ route('akademik.kalender') }}" id="kalender" class="card"
+               style="text-decoration:none;color:inherit;display:block;">
                 <div class="card-icon">📅</div>
                 <h3>Kalender Akademik</h3>
                 <p>Jadwal kegiatan belajar, ujian, dan libur sekolah yang tersusun rapi sepanjang tahun ajaran.</p>
-            </article>
-            <article id="guru" class="card">
+            </a>
+            <a href="{{ route('akademik.guru') }}" id="guru" class="card"
+               style="text-decoration:none;color:inherit;display:block;">
                 <div class="card-icon">👩‍🏫</div>
                 <h3>Guru &amp; Staf</h3>
                 <p>Tenaga pendidik bersertifikat yang berpengalaman dan penuh dedikasi dalam mendampingi siswa.</p>
-            </article>
+            </a>
         </div>
     </section>
 
