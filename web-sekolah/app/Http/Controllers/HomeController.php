@@ -8,6 +8,7 @@ use App\Models\Guru;
 use App\Models\PpdbSetting;
 use App\Models\Ekstrakurikuler;
 use App\Models\Prestasi;
+use App\Models\ProfilSetting;
 use App\Models\RuangKelas;
 
 class HomeController extends Controller
@@ -18,7 +19,8 @@ class HomeController extends Controller
             return redirect()->route('admin.dashboard');
         }
 
-        $berita = Berita::where('is_active', true)
+        $berita = Berita::select(Berita::LIST_COLUMNS)
+            ->where('is_active', true)
             ->orderByDesc('tanggal')
             ->orderByDesc('id')
             ->limit(3)
@@ -32,6 +34,8 @@ class HomeController extends Controller
             ->get();
 
         $ppdb = PpdbSetting::getData();
+
+        $profil = ProfilSetting::getData();
 
         $ekskulPreview = Ekstrakurikuler::where('is_active', true)
             ->orderBy('urutan')
@@ -55,7 +59,7 @@ class HomeController extends Controller
 
         return view('home', compact(
             'berita', 'galeriPreview', 'ppdb',
-            'ekskulPreview', 'prestasiPreview', 'stats'
+            'ekskulPreview', 'prestasiPreview', 'stats', 'profil'
         ));
     }
 }
