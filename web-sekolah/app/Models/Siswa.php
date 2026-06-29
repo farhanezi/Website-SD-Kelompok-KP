@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class Mahasiswa extends Model
+class Siswa extends Model
 {
-    protected $table = 'mahasiswas';
+    protected $table = 'siswas';
 
     protected $fillable = [
         'nama',
-        'nim',
-        'jurusan',
+        'nis',
+        'kelas',
         'deskripsi',
         'foto',
     ];

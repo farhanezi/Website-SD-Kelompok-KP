@@ -22,7 +22,7 @@ use App\Http\Controllers\Admin\KalenderAkademikController;
 use App\Http\Controllers\Admin\KurikulumController;
 use App\Http\Controllers\Admin\GuruController;
 use App\Http\Controllers\Admin\PesanController;
-use App\Http\Controllers\Admin\MahasiswaController;
+use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\KesiswaanController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\AkademikController;
@@ -138,14 +138,14 @@ Route::prefix('admin')->name('admin.')->middleware('nocache')->group(function ()
             Route::patch('/{guru}/toggle',  [GuruController::class, 'toggle'])->name('toggle');
         });
 
-        // Akademik - Mahasiswa
-        Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
-            Route::get('/',                 [MahasiswaController::class, 'index'])->name('index');
-            Route::get('/create',           [MahasiswaController::class, 'create'])->name('create');
-            Route::post('/',                [MahasiswaController::class, 'store'])->name('store');
-            Route::get('/{mahasiswa}/edit', [MahasiswaController::class, 'edit'])->name('edit');
-            Route::put('/{mahasiswa}',      [MahasiswaController::class, 'update'])->name('update');
-            Route::delete('/{mahasiswa}',   [MahasiswaController::class, 'destroy'])->name('destroy');
+        // Akademik - Siswa
+        Route::prefix('siswa')->name('siswa.')->group(function () {
+            Route::get('/',                 [SiswaController::class, 'index'])->name('index');
+            Route::get('/create',           [SiswaController::class, 'create'])->name('create');
+            Route::post('/',                [SiswaController::class, 'store'])->name('store');
+            Route::get('/{siswa}/edit', [SiswaController::class, 'edit'])->name('edit');
+            Route::put('/{siswa}',      [SiswaController::class, 'update'])->name('update');
+            Route::delete('/{siswa}',   [SiswaController::class, 'destroy'])->name('destroy');
         });
 
         // Profil — Konten (Sejarah / Visi Misi / Dana BOS)

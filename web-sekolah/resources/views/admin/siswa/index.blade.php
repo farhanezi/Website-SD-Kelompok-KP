@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'Kelola Mahasiswa')
-@section('page-title', 'Mahasiswa')
+@section('title', 'Kelola Siswa')
+@section('page-title', 'Siswa')
 
 @section('styles')
 <style>
@@ -62,8 +62,8 @@
 
 <div class="section-card">
     <div class="section-header">
-        <h6><i class="bi bi-mortarboard-fill me-2 text-primary"></i>Daftar Mahasiswa ({{ $items->total() }})</h6>
-        <a href="{{ route('admin.mahasiswa.create') }}" class="btn btn-sm"
+        <h6><i class="bi bi-mortarboard-fill me-2 text-primary"></i>Daftar Siswa ({{ $items->total() }})</h6>
+        <a href="{{ route('admin.siswa.create') }}" class="btn btn-sm"
            style="background:var(--primary);color:#fff;border-radius:8px;font-size:.8rem;">
             <i class="bi bi-plus-lg me-1"></i> Tambah
         </a>
@@ -72,7 +72,7 @@
     @if ($items->isEmpty())
         <div class="p-5 text-center text-muted">
             <i class="bi bi-mortarboard" style="font-size:2.5rem;opacity:.3;"></i>
-            <p class="mt-2 mb-0" style="font-size:.9rem;">Belum ada data mahasiswa. Klik "Tambah" untuk mulai.</p>
+            <p class="mt-2 mb-0" style="font-size:.9rem;">Belum ada data siswa. Klik "Tambah" untuk mulai.</p>
         </div>
     @else
         <div class="mhs-admin-grid">
@@ -88,17 +88,17 @@
                     <div class="mhs-admin-body">
                         <div class="mhs-admin-title" title="{{ $item->nama }}">{{ $item->nama }}</div>
                         <div class="mhs-admin-sub">
-                            {{ $item->nim ?: '—' }}
-                            @if ($item->jurusan) · {{ $item->jurusan }} @endif
+                            {{ $item->nis ?: '—' }}
+                            @if ($item->kelas) · {{ $item->kelas }} @endif
                         </div>
                         <div class="mhs-admin-actions">
-                            <a href="{{ route('admin.mahasiswa.edit', $item) }}"
+                            <a href="{{ route('admin.siswa.edit', $item) }}"
                                class="btn btn-sm btn-light flex-fill text-center"
                                style="font-size:.72rem;border-radius:6px;padding:.25rem;">
                                 <i class="bi bi-pencil-fill"></i> Edit
                             </a>
-                            <form method="POST" action="{{ route('admin.mahasiswa.destroy', $item) }}"
-                                  onsubmit="return confirm('Hapus data mahasiswa ini?')">
+                            <form method="POST" action="{{ route('admin.siswa.destroy', $item) }}"
+                                  onsubmit="return confirm('Hapus data siswa ini?')">
                                 @csrf @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-light"
                                     style="font-size:.72rem;border-radius:6px;padding:.25rem;color:#dc2626;">

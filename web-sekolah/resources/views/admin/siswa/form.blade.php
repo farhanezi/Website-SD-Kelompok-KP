@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', $item ? 'Edit Mahasiswa' : 'Tambah Mahasiswa')
-@section('page-title', $item ? 'Edit Mahasiswa' : 'Tambah Mahasiswa')
+@section('title', $item ? 'Edit Siswa' : 'Tambah Siswa')
+@section('page-title', $item ? 'Edit Siswa' : 'Tambah Siswa')
 
 @section('styles')
 <style>
@@ -35,13 +35,13 @@
 @section('content')
 
 <div class="mb-3">
-    <a href="{{ route('admin.mahasiswa.index') }}" class="btn btn-sm btn-light" style="border-radius:8px;font-size:.82rem;">
+    <a href="{{ route('admin.siswa.index') }}" class="btn btn-sm btn-light" style="border-radius:8px;font-size:.82rem;">
         <i class="bi bi-arrow-left me-1"></i> Kembali
     </a>
 </div>
 
 <form method="POST"
-      action="{{ $item ? route('admin.mahasiswa.update', $item) : route('admin.mahasiswa.store') }}"
+      action="{{ $item ? route('admin.siswa.update', $item) : route('admin.siswa.store') }}"
       enctype="multipart/form-data">
     @csrf
     @if ($item) @method('PUT') @endif
@@ -54,7 +54,7 @@
             <div class="form-card mb-4">
                 <div class="form-card-header">
                     <div class="hico" style="background:#dbeafe;color:#1d4ed8;"><i class="bi bi-mortarboard-fill"></i></div>
-                    <h6>Informasi Mahasiswa</h6>
+                    <h6>Informasi Siswa</h6>
                 </div>
                 <div class="form-card-body">
 
@@ -62,24 +62,24 @@
                         <label class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
                         <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror"
                                value="{{ old('nama', $item?->nama) }}" required maxlength="255"
-                               placeholder="Nama lengkap mahasiswa">
+                               placeholder="Nama lengkap siswa">
                         @error('nama') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
 
                     <div class="row g-3 mb-3">
                         <div class="col-sm-5">
-                            <label class="form-label">NIM</label>
-                            <input type="text" name="nim" class="form-control @error('nim') is-invalid @enderror"
-                                   value="{{ old('nim', $item?->nim) }}" maxlength="50"
-                                   placeholder="Nomor Induk Mahasiswa">
-                            @error('nim') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            <label class="form-label">NIS</label>
+                            <input type="text" name="nis" class="form-control @error('nis') is-invalid @enderror"
+                                   value="{{ old('nis', $item?->nis) }}" maxlength="50"
+                                   placeholder="Nomor Induk Siswa">
+                            @error('nis') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
                         <div class="col-sm-7">
-                            <label class="form-label">Program Studi / Jurusan</label>
-                            <input type="text" name="jurusan" class="form-control @error('jurusan') is-invalid @enderror"
-                                   value="{{ old('jurusan', $item?->jurusan) }}" maxlength="255"
-                                   placeholder="Contoh: Teknik Informatika">
-                            @error('jurusan') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            <label class="form-label">Kelas</label>
+                            <input type="text" name="kelas" class="form-control @error('kelas') is-invalid @enderror"
+                                   value="{{ old('kelas', $item?->kelas) }}" maxlength="255"
+                                   placeholder="Contoh: Kelas 5A">
+                            @error('kelas') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
                     </div>
 
@@ -87,7 +87,7 @@
                         <label class="form-label">Deskripsi / Keterangan</label>
                         <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror"
                                   rows="5"
-                                  placeholder="Keterangan tambahan tentang mahasiswa…">{{ old('deskripsi', $item?->deskripsi) }}</textarea>
+                                  placeholder="Keterangan tambahan tentang siswa…">{{ old('deskripsi', $item?->deskripsi) }}</textarea>
                         @error('deskripsi') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
 
@@ -126,9 +126,9 @@
                 <button type="submit" class="btn btn-sm py-2"
                     style="background:var(--primary);color:#fff;border-radius:10px;font-size:.85rem;font-weight:500;">
                     <i class="bi bi-floppy-fill me-1"></i>
-                    {{ $item ? 'Simpan Perubahan' : 'Tambah Mahasiswa' }}
+                    {{ $item ? 'Simpan Perubahan' : 'Tambah Siswa' }}
                 </button>
-                <a href="{{ route('admin.mahasiswa.index') }}" class="btn btn-sm btn-light py-2"
+                <a href="{{ route('admin.siswa.index') }}" class="btn btn-sm btn-light py-2"
                     style="border-radius:10px;font-size:.85rem;">Batal</a>
             </div>
 

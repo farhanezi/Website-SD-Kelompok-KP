@@ -8,11 +8,11 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('mahasiswas', function (Blueprint $table) {
+        Schema::create('siswas', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('nim')->nullable();
-            $table->string('jurusan')->nullable();
+            $table->string('nis')->nullable();
+            $table->string('kelas')->nullable();
             $table->text('deskripsi')->nullable();
             $table->string('foto')->nullable(); // path foto di storage/app/public
             $table->timestamps();
@@ -21,6 +21,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('mahasiswas');
+        Schema::dropIfExists('siswas');
     }
 };
