@@ -1,0 +1,135 @@
+# Deploy ke Vercel
+
+Panduan deploy website sekolah ini ke Vercel. **Pengembangan lokal tetap berjalan
+seperti biasa** (`php artisan serve` / XAMPP) — konfigurasi di sini hanya aktif
+saat berjalan di Vercel.
+
+---
+
+## 1. Cara kerjanya
+
+| Berkas | Fungsi |
+|---|---|
+| `api/index.php` | Entry point khusus Vercel. Mengarahkan storage ke `/tmp`, lalu memanggil `public/index.php`. |
+| `vercel.json` | Runtime PHP, routing, dan env var yang tidak rahasia. |
+| `.vercelignore` | Menahan `.env`, `node_modules`, dan `tests` agar tidak ikut terupload. |
+
+Lokal memakai `public/index.php` seperti biasa dan **tidak menyentuh** `api/index.php`.
+
+**Kenapa storage diarahkan ke `/tmp`?** Filesystem Vercel bersifat *read-only*
+kecuali `/tmp`, sedangkan Laravel perlu menulis cache view Blade. Karena Laravel 12
+mendukung `LARAVEL_STORAGE_PATH`, seluruh `storage_path()` dialihkan ke `/tmp`.
+
+Aset CSS/JS di proyek ini adalah file statis biasa di `public/`, **bukan** Vite —
+jadi tidak ada langkah `npm run build` saat deploy.
+
+---
+
+## 2. Pengaturan proyek di Vercel
+
+Saat import repo dari GitHub:
+
+| Pengaturan | Nilai |
+|---|---|
+| **Root Directory** | **`web-sekolah`** ← WAJIB, karena aplikasi Laravel ada di subfolder |
+| Framework Preset | **Other** |
+| Build / Output / Install Command | kosongkan semua |
+
+Kalau Root Directory tidak diisi `web-sekolah`, Vercel tidak akan menemukan
+`vercel.json` dan deploy-nya gagal.
+
+---
+
+## 3. Environment Variables
+
+Isi di **Project → Settings → Environment Variables**. Yang tidak rahasia
+(`APP_ENV`, `SESSION_DRIVER`, dll.) sudah diatur di `vercel.json`.
+
+| Variabel | Nilai | Keterangan |
+|---|---|---|
+| `APP_KEY` | `base64:...` | **Salin dari `.env` lokal Anda.** Tanpa ini aplikasi error. |
+| `APP_URL` | `https://<proyek>.vercel.app` | Sesuaikan setelah domain didapat. |
+| `DB_HOST` | `ep-...aws.neon.tech` | Dari `.env` lokal |
+| `DB_PORT` | `5432` | |
+| `DB_DATABASE` | `neondb` | |
+| `DB_USERNAME` | `neondb_owner` | |
+| `DB_PASSWORD` | `npg_...` | Rahasia |
+| `DB_SSLMODE` | `require` | Wajib untuk Neon |
+| `DB_PGSQL_OPTIONS` | `endpoint=ep-falling-flower-aol2whrf` | Wajib untuk Neon |
+
+> **PENTING — jangan hanya mengandalkan `DB_URL`.**
+> Blok `pgsql` di `config/database.php` **tidak** membaca `DB_URL` (yang ada di
+> `.env` hanya terpakai oleh driver lain). Koneksi dibangun dari `DB_HOST` dkk.
+> Kalau Anda hanya mengisi `DB_URL`, Laravel diam-diam mencoba `127.0.0.1` dan gagal
+> connect.
+
+Nilainya bisa disalin dari `.env` lokal. **Jangan commit `.env`** — sudah ditahan
+`.gitignore` dan `.vercelignore`.
+
+---
+
+## 4. Deploy
+
+```bash
+git add .
+git commit -m "Tambah konfigurasi deploy Vercel"
+git push
+```
+
+Import repo di vercel.com → atur Root Directory = `web-sekolah` → isi env vars → Deploy.
+
+---
+
+## 5. Migrasi database
+
+**Migrasi tidak berjalan otomatis di Vercel** (tidak ada shell saat runtime).
+Jalankan dari komputer lokal — databasenya sama (Neon), jadi hasilnya langsung
+terpakai oleh Vercel:
+
+```bash
+php artisan migrate --force
+```
+
+---
+
+## 6. Batasan yang perlu diketahui
+
+### Upload dokumen PDF AKAN RUSAK di Vercel
+
+**Tata Tertib** dan **Kalender Akademik** masih menyimpan dokumen sebagai file di
+disk (`storage/app/public`). Di Vercel:
+
+- file tertulis ke `/tmp` yang **terhapus** dan **tidak dibagi** antar-instance;
+- dokumen yang baru diupload akan hilang dan tidak bisa diunduh.
+
+Fitur lain aman: **semua gambar** (berita, galeri, guru, ekskul, prestasi, sarpras,
+ruang kelas, e-book, siswa, video) sudah tersimpan sebagai biner di database.
+
+Agar dokumen ikut aman, solusinya sama seperti gambar: simpan sebagai biner di
+database, atau pakai penyimpanan eksternal (S3/Vercel Blob). Bilang saja kalau mau
+saya kerjakan.
+
+### Gambar lama yang file-nya sudah hilang
+
+File upload **tidak pernah ikut di Git** (`storage/app/public/.gitignore` berisi `*`),
+jadi gambar yang masih memakai path lama tidak akan tampil di Vercel. Setelah
+`php artisan images:to-db`, tersisa 2 record yang file-nya sudah hilang dari disk
+(`ekstrakurikuler#1`, `ebooks#1`) — **upload ulang lewat dashboard admin**.
+
+### Lainnya
+
+- **Log** dikirim ke `stderr` → lihat di tab *Runtime Logs* Vercel, bukan file.
+- **Session & cache** memakai database (sudah cocok untuk serverless).
+- Versi runtime `vercel-php@0.7.4` di `vercel.json` bisa dinaikkan bila ada rilis baru.
+
+---
+
+## 7. Kalau gagal
+
+| Gejala | Kemungkinan penyebab |
+|---|---|
+| `404: NOT_FOUND` | Root Directory belum diisi `web-sekolah`. |
+| `500` + log `No application encryption key` | `APP_KEY` belum diisi. |
+| `SQLSTATE... could not connect / 127.0.0.1` | `DB_HOST`/`DB_PGSQL_OPTIONS` belum diisi (lihat catatan `DB_URL` di atas). |
+| CSS/JS tidak muncul | Cek blok `routes` di `vercel.json`. |
+| `Class not found` | Composer gagal install — cek Build Logs. |
