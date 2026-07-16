@@ -159,6 +159,8 @@ jadi gambar yang masih memakai path lama tidak akan tampil di Vercel. Setelah
 | Gejala | Kemungkinan penyebab |
 |---|---|
 | `404: NOT_FOUND` | Root Directory belum diisi `web-sekolah`. |
+| `500` + log `BindingResolutionException` / `Target class [...] does not exist` | File aplikasi tidak ikut ter-bundle. Pastikan `includeFiles: ["**"]` masih ada di `vercel.json`. |
+| `500` + log `bootstrap/cache ... must be present and writable` | Cache bootstrap belum diarahkan ke `/tmp` — cek `api/index.php`. |
 | `500` + log `No application encryption key` | `APP_KEY` belum diisi. |
 | `SQLSTATE... could not connect / 127.0.0.1` | `DB_HOST`/`DB_PGSQL_OPTIONS` belum diisi (lihat catatan `DB_URL` di atas). |
 | CSS/JS tidak muncul / situs tanpa gaya | Cek blok `routes` di `vercel.json`. Bila di console browser muncul *mixed content*, pastikan `trustProxies` masih ada di `bootstrap/app.php`. |
