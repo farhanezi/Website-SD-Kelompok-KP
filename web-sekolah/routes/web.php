@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\KalenderAkademikController;
 use App\Http\Controllers\Admin\KurikulumController;
 use App\Http\Controllers\Admin\GuruController;
 use App\Http\Controllers\Admin\PesanController;
+use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\KesiswaanController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\AkademikController;
@@ -135,6 +136,16 @@ Route::prefix('admin')->name('admin.')->middleware('nocache')->group(function ()
             Route::put('/{guru}',           [GuruController::class, 'update'])->name('update');
             Route::delete('/{guru}',        [GuruController::class, 'destroy'])->name('destroy');
             Route::patch('/{guru}/toggle',  [GuruController::class, 'toggle'])->name('toggle');
+        });
+
+        // Akademik - Siswa
+        Route::prefix('siswa')->name('siswa.')->group(function () {
+            Route::get('/',                 [SiswaController::class, 'index'])->name('index');
+            Route::get('/create',           [SiswaController::class, 'create'])->name('create');
+            Route::post('/',                [SiswaController::class, 'store'])->name('store');
+            Route::get('/{siswa}/edit', [SiswaController::class, 'edit'])->name('edit');
+            Route::put('/{siswa}',      [SiswaController::class, 'update'])->name('update');
+            Route::delete('/{siswa}',   [SiswaController::class, 'destroy'])->name('destroy');
         });
 
         // Profil — Konten (Sejarah / Visi Misi / Dana BOS)
