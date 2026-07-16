@@ -22,6 +22,19 @@ $storage = '/tmp/storage';
 // semua storage_path() (view terkompilasi, log, cache file) menunjuk ke /tmp.
 $_ENV['LARAVEL_STORAGE_PATH'] = $_SERVER['LARAVEL_STORAGE_PATH'] = $storage;
 
+// Folder aplikasi (termasuk bootstrap/cache) READ-ONLY di serverless. Bila manifest
+// paket belum sempat dibuat saat build, Laravel akan mencoba menulisnya saat runtime
+// dan gagal. Arahkan semua cache bootstrap ke /tmp yang bisa ditulis.
+foreach ([
+    'APP_PACKAGES_CACHE' => $storage . '/bootstrap/packages.php',
+    'APP_SERVICES_CACHE' => $storage . '/bootstrap/services.php',
+    'APP_CONFIG_CACHE'   => $storage . '/bootstrap/config.php',
+    'APP_ROUTES_CACHE'   => $storage . '/bootstrap/routes.php',
+    'APP_EVENTS_CACHE'   => $storage . '/bootstrap/events.php',
+] as $kunci => $nilai) {
+    $_ENV[$kunci] = $_SERVER[$kunci] = $nilai;
+}
+
 // Direktori harus SUDAH ADA sebelum config dimuat: config/view.php memakai
 // realpath() yang mengembalikan false bila foldernya belum ada.
 foreach ([
@@ -29,6 +42,7 @@ foreach ([
     $storage . '/framework/cache/data',
     $storage . '/framework/sessions',
     $storage . '/logs',
+    $storage . '/bootstrap',
 ] as $dir) {
     if (! is_dir($dir)) {
         @mkdir($dir, 0777, true);
