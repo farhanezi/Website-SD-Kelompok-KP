@@ -106,26 +106,26 @@
     <!-- Ini bagian beranda ya ges -->
     {{-- ===================== HERO / BERANDA ===================== --}}
     <section id="beranda" class="hero">
-        <div class="hero-body">
-            <div class="hero-inner">
-                <span class="hero-badge">Selamat Datang di Website Resmi</span>
-                <h1>SDN <span>Dadapsari</span></h1>
-                <p class="hero-motto">"Santun dalam berperilaku, hebat dalam prestasi"</p>
-                <p>Membentuk generasi cerdas, berkarakter, dan berakhlak mulia melalui pendidikan dasar yang berkualitas dan
-                    menyenangkan.</p>
-                <div class="hero-actions">
-                    @auth
-                        <a href="{{ route('admin.dashboard') }}" class="btn btn-primary">Daftar PPDB Sekarang</a>
-                    @else
-                        <a href="#ppdb" class="btn btn-primary">Daftar PPDB Sekarang</a>
-                    @endauth
-                    <a href="#profil" class="btn btn-ghost">Kenali Kami</a>
-                </div>
-            </div>
-
-            <div class="hero-photo-wrap">
-                <div class="hero-photo-ring">
-                    <img src="{{ asset('images/sekolah-3.jpeg') }}" alt="Wali Kota Semarang" class="hero-photo">
+        {{-- Banner Wali Kota jadi latar hero; berhenti tepat di atas .hero-stats.
+             Gambar kini latar, jadi maknanya dibawa role/aria-label. --}}
+        <div class="hero-visual" role="img"
+            aria-label="Selamat dan sukses atas dilantiknya Dr. Agustina Wilujeng Pramestuti, SS, MM dan Ir. H. Iswar Aminuddin, M.T sebagai Wali Kota dan Wakil Wali Kota Semarang masa jabatan 2025–2030"
+            style="--hero-img: url('{{ asset('images/sekolah-3.jpeg') }}');">
+            <div class="hero-body">
+                <div class="hero-inner">
+                    <span class="hero-badge">Selamat Datang di Website Resmi</span>
+                    <h1>SDN <span>Dadapsari</span></h1>
+                    <p class="hero-motto">"Santun dalam berperilaku, hebat dalam prestasi"</p>
+                    <p>Membentuk generasi cerdas, berkarakter, dan berakhlak mulia melalui pendidikan dasar yang berkualitas dan
+                        menyenangkan.</p>
+                    <div class="hero-actions">
+                        @auth
+                            <a href="{{ route('admin.dashboard') }}" class="btn btn-primary">Daftar PPDB Sekarang</a>
+                        @else
+                            <a href="#ppdb" class="btn btn-primary">Daftar PPDB Sekarang</a>
+                        @endauth
+                        <a href="#profil" class="btn btn-ghost">Kenali Kami</a>
+                    </div>
                 </div>
             </div>
         </div>
