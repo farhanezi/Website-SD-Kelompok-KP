@@ -92,7 +92,7 @@
         .galeri-modal-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0, 43, 91, .65);
+            background: rgba(40, 40, 40, .65);
             backdrop-filter: blur(4px);
         }
 

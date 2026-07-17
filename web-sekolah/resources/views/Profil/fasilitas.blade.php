@@ -7,7 +7,7 @@
 <style>
     /* ── HEADER – selaras tema sekolah ── */
     .fas-header {
-        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 55%, #2a8aa3 100%);
+        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--primary-ink) 100%);
         color: var(--white);
         padding: 3.5rem 1.5rem 5.5rem;
         text-align: center;
@@ -18,14 +18,14 @@
         content: '';
         position: absolute;
         width: 280px; height: 280px;
-        background: rgba(87,197,182,.12);
+        background: rgba(255,145,11,.12);
         border-radius: 50%;
         top: -80px; left: -60px;
         filter: blur(8px);
     }
     .fas-header .eyebrow {
         display: inline-block;
-        background: rgba(87,197,182,.2);
+        background: rgba(255,145,11,.2);
         color: #bfe8e1;
         padding: .3rem .9rem;
         border-radius: 50px;
@@ -165,7 +165,7 @@
         background: #f0fbf9; white-space: nowrap;
     }
     table.sarpras th.num, table.sarpras td.num { text-align: center; }
-    table.sarpras tbody td { padding: .8rem 1.4rem; color: var(--text); border-bottom: 1px solid rgba(0,43,91,.05); vertical-align: middle; }
+    table.sarpras tbody td { padding: .8rem 1.4rem; color: var(--text); border-bottom: 1px solid rgba(40,40,40,.05); vertical-align: middle; }
     table.sarpras tbody tr:nth-child(even) { background: #fafbfc; }
     table.sarpras tbody tr:hover { background: #f0fbf9; }
     table.sarpras .sarpras-img { width: 52px; height: 40px; border-radius: 6px; object-fit: cover; border: 1px solid #e2e8f0; }

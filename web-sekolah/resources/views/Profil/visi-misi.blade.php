@@ -102,13 +102,13 @@
     .vm-card-head {
         display: flex; align-items: center; gap: 1rem;
         padding: 1.35rem 1.75rem; background: var(--bg);
-        border-bottom: 1px solid rgba(0,43,91,.06);
+        border-bottom: 1px solid rgba(40,40,40,.06);
     }
     .vm-icon {
         width: 44px; height: 44px; border-radius: 12px;
         background: var(--white); display: grid; place-items: center;
         font-size: 1.4rem; flex-shrink: 0;
-        box-shadow: 0 2px 8px rgba(0,43,91,.1);
+        box-shadow: 0 2px 8px rgba(40,40,40,.1);
     }
     .vm-card-head h3 { font-size: 1.05rem; font-weight: 700; color: var(--primary-dark); margin: 0; }
     .vm-card-body { padding: 1.75rem; }

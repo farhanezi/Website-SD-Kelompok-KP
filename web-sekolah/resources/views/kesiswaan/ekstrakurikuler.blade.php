@@ -7,7 +7,7 @@
 @push('styles')
     <style>
         .page-header {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 55%, #2a8aa3 100%);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--primary-ink) 100%);
             color: var(--white);
             padding: 3.5rem 1.5rem 5rem;
             text-align: center;
@@ -124,7 +124,7 @@
             margin-top: .4rem;
             font-size: .82rem;
             font-weight: 600;
-            color: var(--accent);
+            color: var(--primary);
         }
 
         .ekskul-more::after {
@@ -169,7 +169,7 @@
         .ekskul-modal-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0, 43, 91, .55);
+            background: rgba(40, 40, 40, .55);
             backdrop-filter: blur(4px);
         }
 

@@ -102,7 +102,7 @@
                              alt="" style="{{ $item?->coverUrl() ? '' : 'display:none;' }} max-height:200px;">
                         <div id="coverPlaceholder" style="{{ $item?->coverUrl() ? 'display:none;' : '' }}">
                             <div style="font-size:2rem;">📷</div>
-                            <p class="mb-0 mt-1" style="font-size:.8rem;color:#94a3b8;">Klik untuk pilih gambar cover</p>
+                            <p class="mb-0 mt-1" style="font-size:.8rem;color:#756d66;">Klik untuk pilih gambar cover</p>
                             <small style="color:#cbd5e1;">JPG, PNG · Maks. 2 MB</small>
                         </div>
                     </div>

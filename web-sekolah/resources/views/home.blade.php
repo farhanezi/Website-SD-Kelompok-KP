@@ -40,7 +40,7 @@
             /* Visi – light card */
             .home-vm-visi {
                 background: var(--white);
-                border: 1px solid rgba(0, 43, 91, .08);
+                border: 1px solid rgba(40, 40, 40, .08);
             }
 
             .home-vm-visi .home-vm-head {
@@ -54,7 +54,7 @@
                 font-size: 1.02rem;
             }
 
-            /* Misi – brand blue card */
+            /* Misi – brand card */
             .home-vm-misi {
                 background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
                 color: var(--white);
@@ -231,7 +231,7 @@
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
                 <span style="font-weight:700;color:var(--primary-dark);font-size:1rem;">⚽ Ekstrakurikuler</span>
                 <a href="{{ route('kesiswaan.ekstrakurikuler') }}"
-                    style="font-size:.82rem;font-weight:600;color:var(--accent);text-decoration:none;">Lihat Semua →</a>
+                    style="font-size:.82rem;font-weight:600;color:var(--primary);text-decoration:none;">Lihat Semua →</a>
             </div>
             <div class="news-grid">
                 @forelse ($ekskulPreview as $e)
@@ -277,7 +277,7 @@
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
                 <span style="font-weight:700;color:var(--primary-dark);font-size:1rem;">🏆 Prestasi Terbaru</span>
                 <a href="{{ route('kesiswaan.prestasi') }}"
-                    style="font-size:.82rem;font-weight:600;color:var(--accent);text-decoration:none;">Lihat Semua →</a>
+                    style="font-size:.82rem;font-weight:600;color:var(--primary);text-decoration:none;">Lihat Semua →</a>
             </div>
             <div class="news-grid">
                 @forelse ($prestasiPreview as $p)
@@ -339,7 +339,7 @@
                     <p style="margin:0;font-size:.88rem;">Aturan sekolah yang menumbuhkan kedisiplinan, tanggung jawab, dan
                         akhlak mulia.</p>
                 </div>
-                <span style="margin-left:auto;font-size:1.25rem;color:var(--accent);flex-shrink:0;">→</span>
+                <span style="margin-left:auto;font-size:1.25rem;color:var(--primary);flex-shrink:0;">→</span>
             </a>
         </div>
     </section>
@@ -358,13 +358,13 @@
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
                 <span style="font-weight:700;color:var(--primary-dark);font-size:1rem;">📰 Berita Terbaru</span>
                 <a href="{{ route('informasi.index') }}"
-                    style="font-size:.82rem;font-weight:600;color:var(--accent);text-decoration:none;">Lihat Semua →</a>
+                    style="font-size:.82rem;font-weight:600;color:var(--primary);text-decoration:none;">Lihat Semua →</a>
             </div>
             <div class="news-grid">
                 @forelse ($berita as $item)
                     <a href="{{ route('informasi.index') }}" class="news-card"
                         style="text-decoration:none;color:inherit;display:block;">
-                        <div class="news-thumb" style="--c1:#1a5f7a;--c2:#57c5b6;position:relative;overflow:hidden;">
+                        <div class="news-thumb" style="--c1:#a85400;--c2:#f48000;position:relative;overflow:hidden;">
                             <span>📰</span>
                             @if ($item->gambar_url)
                                 <img src="{{ $item->gambar_url }}" alt="{{ $item->judul }}" loading="lazy"
@@ -382,7 +382,7 @@
                     </a>
                 @empty
                     <article class="news-card">
-                        <div class="news-thumb" style="--c1:#1a5f7a;--c2:#57c5b6;"><span>📰</span></div>
+                        <div class="news-thumb" style="--c1:#a85400;--c2:#f48000;"><span>📰</span></div>
                         <div class="news-body">
                             <span class="news-date">—</span>
                             <h3>Belum ada berita</h3>
@@ -400,7 +400,7 @@
                 <span style="font-weight:700;color:var(--primary-dark);font-size:1rem;">🎓 Pendaftaran Siswa Baru
                     (PPDB)</span>
                 <a href="{{ route('ppdb.index') }}"
-                    style="font-size:.82rem;font-weight:600;color:var(--accent);text-decoration:none;">Lihat Info →</a>
+                    style="font-size:.82rem;font-weight:600;color:var(--primary);text-decoration:none;">Lihat Info →</a>
             </div>
             <div class="ppdb-banner">
                 <div>
@@ -420,12 +420,12 @@
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
                 <span style="font-weight:700;color:var(--primary-dark);font-size:1rem;">📷 Galeri Kegiatan</span>
                 <a href="{{ route('informasi.galeri') }}"
-                    style="font-size:.82rem;font-weight:600;color:var(--accent);text-decoration:none;">Lihat Semua →</a>
+                    style="font-size:.82rem;font-weight:600;color:var(--primary);text-decoration:none;">Lihat Semua →</a>
             </div>
             <div class="gallery">
                 @forelse ($galeriPreview as $foto)
                     <a href="{{ route('informasi.galeri') }}" class="gallery-item"
-                        style="--c1:#1a5f7a;--c2:#57c5b6;text-decoration:none;
+                        style="--c1:#a85400;--c2:#f48000;text-decoration:none;
                               position:relative;overflow:hidden;display:grid;place-items:center;">
                         @if ($foto->gambarUrl())
                             <img src="{{ $foto->gambarUrl() }}" alt="{{ $foto->judul }}"
@@ -437,7 +437,7 @@
                 @empty
                     @foreach (['📸', '🎨', '🎶', '⚽', '🔬', '📚'] as $ikon)
                         <a href="{{ route('informasi.galeri') }}" class="gallery-item"
-                            style="--c1:#1a5f7a;--c2:#57c5b6;text-decoration:none;">{{ $ikon }}</a>
+                            style="--c1:#a85400;--c2:#f48000;text-decoration:none;">{{ $ikon }}</a>
                     @endforeach
                 @endforelse
             </div>
