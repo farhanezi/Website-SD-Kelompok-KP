@@ -89,7 +89,7 @@
         background: #f0fdf4;
     }
     table.bos-table th.num, table.bos-table td.num { text-align: right; }
-    table.bos-table tbody td { padding: .8rem 1.25rem; color: var(--text); border-bottom: 1px solid rgba(0,43,91,.05); vertical-align: top; }
+    table.bos-table tbody td { padding: .8rem 1.25rem; color: var(--text); border-bottom: 1px solid rgba(40,40,40,.05); vertical-align: top; }
     table.bos-table tbody tr:nth-child(even) { background: #f9fffe; }
     table.bos-table tbody tr:hover { background: #ecfdf5; }
     table.bos-table tfoot td {

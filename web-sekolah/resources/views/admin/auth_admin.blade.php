@@ -15,10 +15,14 @@
 
     <style>
         :root {
-            --primary: #1a5f7a;
-            --primary-dark: #002b5b;
-            --accent: #57c5b6;
-            --accent-soft: #e6f7f4;
+            /* Selaras dengan palet oranye di public/css/style.css */
+            --primary: #a85400;
+            --primary-bright: #f48000;
+            --primary-ink: #8f4700;
+            --primary-dark: #282828;
+            --accent: #ff910b;
+            --accent-soft: #fff2e2;
+            --highlight: #ffd08a;
         }
 
         * {
@@ -55,7 +59,7 @@
             border-radius: 20px;
             padding: 8px;
             margin-bottom: .75rem;
-            box-shadow: 0 8px 24px rgba(0, 43, 91, .25);
+            box-shadow: 0 8px 24px rgba(40, 40, 40, .25);
         }
 
         .brand-badge img {
@@ -82,7 +86,7 @@
             background: #fff;
             border-radius: 20px;
             padding: 2.25rem 2rem;
-            box-shadow: 0 24px 60px rgba(0, 43, 91, .25);
+            box-shadow: 0 24px 60px rgba(40, 40, 40, .25);
         }
 
         .login-card h2 {
@@ -94,7 +98,7 @@
 
         .login-card .subtitle {
             font-size: .8rem;
-            color: #94a3b8;
+            color: #756d66;
             margin-bottom: 1.75rem;
         }
 
@@ -115,7 +119,7 @@
             left: .9rem;
             top: 50%;
             transform: translateY(-50%);
-            color: #94a3b8;
+            color: #756d66;
             font-size: 1rem;
             pointer-events: none;
         }
@@ -131,7 +135,7 @@
 
         .input-icon-wrap .form-control:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(87, 197, 182, .18);
+            box-shadow: 0 0 0 3px rgba(255, 145, 11, .18);
         }
 
         /* toggle password */
@@ -143,7 +147,7 @@
             background: none;
             border: none;
             padding: 0;
-            color: #94a3b8;
+            color: #756d66;
             font-size: 1rem;
             cursor: pointer;
             transition: color .2s;

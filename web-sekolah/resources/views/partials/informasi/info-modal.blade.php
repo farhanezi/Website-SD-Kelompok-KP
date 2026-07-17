@@ -23,7 +23,7 @@
             .info-modal-overlay {
                 position: absolute;
                 inset: 0;
-                background: rgba(0, 43, 91, .55);
+                background: rgba(40, 40, 40, .55);
                 backdrop-filter: blur(4px);
             }
 
@@ -151,7 +151,7 @@
 
             .info-modal-foot a:hover {
                 transform: translateY(-2px);
-                box-shadow: 0 8px 20px rgba(0, 43, 91, .25);
+                box-shadow: 0 8px 20px rgba(40, 40, 40, .25);
             }
         </style>
     @endpush

@@ -7,7 +7,7 @@
 <!-- ini bagian css -->
     <style>
         .page-header {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 55%, #2a8aa3 100%);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--primary-ink) 100%);
             color: var(--white);
             padding: 3.5rem 1.5rem 5rem;
             text-align: center;
@@ -284,7 +284,7 @@
             max-width: 560px;
             max-height: 90vh;
             overflow-y: auto;
-            box-shadow: 0 24px 60px rgba(0, 43, 91, .25);
+            box-shadow: 0 24px 60px rgba(40, 40, 40, .25);
             transform: translateY(24px) scale(.97);
             transition: transform .25s ease;
             scrollbar-width: none;

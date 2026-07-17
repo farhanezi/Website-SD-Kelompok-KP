@@ -52,8 +52,8 @@
             /* Placeholder gradien bila foto belum ada */
             .galeri-media.ph0 { background: linear-gradient(135deg, var(--primary), var(--accent)); }
             .galeri-media.ph1 { background: linear-gradient(135deg, var(--primary-dark), var(--primary)); }
-            .galeri-media.ph2 { background: linear-gradient(135deg, #2a8aa3, var(--accent)); }
-            .galeri-media.ph3 { background: linear-gradient(135deg, #1a5f7a, #57c5b6); }
+            .galeri-media.ph2 { background: linear-gradient(135deg, var(--primary-ink), var(--accent)); }
+            .galeri-media.ph3 { background: linear-gradient(135deg, var(--primary), var(--primary)); }
 
             .galeri-overlay {
                 position: absolute;
@@ -63,7 +63,7 @@
                 justify-content: flex-end;
                 gap: .3rem;
                 padding: 1rem 1.1rem;
-                background: linear-gradient(to top, rgba(0, 43, 91, .82) 0%, rgba(0, 43, 91, .25) 45%, transparent 75%);
+                background: linear-gradient(to top, rgba(40, 40, 40, .82) 0%, rgba(40, 40, 40, .25) 45%, transparent 75%);
                 color: var(--white);
                 text-align: left;
             }

@@ -21,7 +21,7 @@
         }
 
         .galeri-admin-item:hover {
-            box-shadow: 0 6px 20px rgba(0, 43, 91, .12);
+            box-shadow: 0 6px 20px rgba(40, 40, 40, .12);
         }
 
         .galeri-admin-thumb {
