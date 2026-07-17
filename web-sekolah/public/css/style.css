@@ -23,6 +23,7 @@
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 90px;
+    overflow-x: hidden;
 }
 
 body {
@@ -758,6 +759,10 @@ img {
 
 @media (max-width: 768px) {
     .nav-toggle { display: flex; }
+
+    /* backdrop-filter membuat .navbar jadi containing block bagi .nav-links
+       yang position:fixed, sehingga panel ikut melebarkan dokumen. */
+    .navbar { backdrop-filter: none; }
 
     .nav-links {
         position: fixed;
