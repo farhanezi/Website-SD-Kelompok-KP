@@ -232,33 +232,70 @@ img {
     position: relative;
     background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--primary-ink) 100%);
     color: var(--white);
-    padding: 5rem 1.5rem 3.5rem;
+    /* padding atas pindah ke .hero-visual agar banner mulai dari tepi paling atas */
+    padding: 0 1.5rem 3.5rem;
     overflow: hidden;
 }
 
-.hero::before,
 .hero::after {
     content: '';
     position: absolute;
+    width: 240px;
+    height: 240px;
     border-radius: 50%;
-    background: rgba(255, 208, 138, 0.18);
+    background: rgba(255, 255, 255, 0.08);
     filter: blur(10px);
+    bottom: -100px;
+    left: -60px;
     pointer-events: none;
 }
 
-.hero::before { width: 320px; height: 320px; top: -120px; right: -80px; }
-.hero::after { width: 240px; height: 240px; bottom: -100px; left: -60px; background: rgba(255, 255, 255, 0.08); }
+/* Banner Wali Kota sebagai latar hero — melebar penuh sampai tepi layar
+   (margin negatif membatalkan padding samping .hero) dan berhenti tepat
+   di atas .hero-stats. */
+.hero-visual {
+    position: relative;
+    margin: 0 -1.5rem;
+    padding: 5rem 1.5rem 3.5rem;
+    display: flex;
+    align-items: center;
+    background-image: var(--hero-img);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 
-/* Two-column layout: text left, photo right */
+/* Rasio 2/1 = rasio asli gambar (1280x640), jadi `cover` pas tanpa memotong —
+   itulah syarat banner tampil UTUH selebar layar. Hanya dipasang mulai 993px:
+   di bawah itu tinggi 2/1 (mis. 180px di layar 360px) lebih pendek daripada
+   teks hero, sehingga tinggi dibiarkan mengikuti isi dan banner ter-crop.
+   Teks terpotong jauh lebih buruk daripada banner terpotong. */
+@media (min-width: 993px) {
+    .hero-visual { aspect-ratio: 2 / 1; }
+}
+
+/* Peredup: banner ini didominasi warna terang, sedangkan teks hero putih.
+   Lebih pekat di kiri (tempat teks) dan menipis ke kanan agar wajah
+   Wali Kota & Wakil tetap terlihat. */
+.hero-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg,
+        rgba(26, 22, 18, 0.90) 0%,
+        rgba(26, 22, 18, 0.82) 34%,
+        rgba(26, 22, 18, 0.52) 56%,
+        rgba(26, 22, 18, 0.28) 78%,
+        rgba(26, 22, 18, 0.18) 100%);
+    pointer-events: none;
+}
+
 .hero-body {
     position: relative;
     z-index: 1;
+    width: 100%;
     max-width: 1180px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    gap: 3rem;
 }
 
 .hero-inner {
@@ -304,51 +341,6 @@ img {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
-}
-
-/* Hero photo panel */
-.hero-photo-wrap {
-    position: relative;
-    flex-shrink: 0;
-    width: 320px;
-    height: 320px;
-}
-
-.hero-photo-ring {
-    width: 300px;
-    height: 300px;
-    border-radius: 30px;
-    overflow: hidden;
-    border: 4px solid rgba(255, 145, 11, 0.5);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
-}
-
-.hero-photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.hero-photo-badge {
-    position: absolute;
-    bottom: -10px;
-    right: -10px;
-    width: 80px;
-    height: 80px;
-    border-radius: 20px;
-    background: var(--white);
-    display: grid;
-    place-items: center;
-    padding: 6px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    border: 3px solid var(--accent);
-}
-
-.hero-logo-badge {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
 }
 
 /* Buttons */
@@ -756,10 +748,14 @@ img {
     .gallery { grid-template-columns: repeat(3, 1fr); }
     .footer-grid { grid-template-columns: 1fr 1fr; }
     .contact-wrap { grid-template-columns: 1fr; }
-    .hero-body { grid-template-columns: 1fr; text-align: center; }
+    .hero-body { text-align: center; }
     .hero p { margin: 0 auto 1.8rem; }
     .hero-actions { justify-content: center; }
-    .hero-photo-wrap { display: none; }
+    /* Teks di tengah, jadi peredup dibuat rata — gradien kiri-berat hanya
+       masuk akal saat teks rata kiri. */
+    .hero-visual::before {
+        background: linear-gradient(180deg, rgba(26, 22, 18, 0.82) 0%, rgba(26, 22, 18, 0.88) 100%);
+    }
 }
 
 @media (max-width: 768px) {
