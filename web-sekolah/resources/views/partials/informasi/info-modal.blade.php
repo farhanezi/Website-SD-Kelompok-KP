@@ -50,13 +50,22 @@
             .info-modal-hero {
                 height: 200px;
                 display: grid;
+                /* Baris grid default berukuran `auto` = mengikuti isi. Gambar
+                   selebar wadah (width:100%) yang rasionya persegi jadi setinggi
+                   itu pula (mis. 640px), barisnya ikut membengkak, dan height:200px
+                   di sini TIDAK mengekangnya — gambar meluber menutupi teks.
+                   minmax(0, 1fr) memaksa baris ikut tinggi wadah, bukan isi. */
+                grid-template-rows: minmax(0, 1fr);
                 place-items: center;
                 font-size: 3.4rem;
                 background: linear-gradient(135deg, var(--primary-dark), var(--accent));
                 flex-shrink: 0;
+                overflow: hidden;
             }
 
             .info-modal-hero img {
+                align-self: stretch;
+                justify-self: stretch;
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
