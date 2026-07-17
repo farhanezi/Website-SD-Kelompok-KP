@@ -55,7 +55,20 @@ Isi di **Project → Settings → Environment Variables**. Yang tidak rahasia
 | `DB_USERNAME` | `neondb_owner` | |
 | `DB_PASSWORD` | `npg_...` | Rahasia |
 | `DB_SSLMODE` | `require` | Wajib untuk Neon |
-| `DB_PGSQL_OPTIONS` | `endpoint=ep-falling-flower-aol2whrf` | Wajib untuk Neon |
+| `DB_PGSQL_OPTIONS` | — | **JANGAN diisi di Vercel.** Lihat peringatan di bawah. |
+
+> **PENTING — `DB_PGSQL_OPTIONS` JANGAN diisi di Vercel.**
+> Variabel ini bersifat *environment-specific* dan kebutuhannya **berlawanan**:
+>
+> | | libpq | Butuh `DB_PGSQL_OPTIONS`? |
+> |---|---|---|
+> | **Lokal (XAMPP)** | tua, tanpa dukungan SNI | **YA** — tanpa ini: `Endpoint ID is not specified` |
+> | **Vercel (PHP 8.3)** | baru, mendukung SNI | **TIDAK** — bila diisi: `Inconsistent project name inferred from SNI` |
+>
+> Neon mengenali project dari SNI. Bila `options='endpoint=...'` juga dikirim dan
+> namanya berbeda (`-pooler` vs tanpa `-pooler`), Neon menolak koneksinya.
+>
+> Jadi: **biarkan tetap ada di `.env` lokal, tapi jangan dibuat di Vercel.**
 
 > **PENTING — jangan hanya mengandalkan `DB_URL`.**
 > Blok `pgsql` di `config/database.php` **tidak** membaca `DB_URL` (yang ada di
@@ -162,6 +175,7 @@ jadi gambar yang masih memakai path lama tidak akan tampil di Vercel. Setelah
 | `500` + log `BindingResolutionException` / `Target class [...] does not exist` | File aplikasi tidak ikut ter-bundle. Pastikan `includeFiles: ["**"]` masih ada di `vercel.json`. |
 | `500` + log `bootstrap/cache ... must be present and writable` | Cache bootstrap belum diarahkan ke `/tmp` — cek `api/index.php`. |
 | `500` + log `No application encryption key` | `APP_KEY` belum diisi. |
-| `SQLSTATE... could not connect / 127.0.0.1` | `DB_HOST`/`DB_PGSQL_OPTIONS` belum diisi (lihat catatan `DB_URL` di atas). |
+| `SQLSTATE[08006] ... Inconsistent project name inferred from SNI` | `DB_PGSQL_OPTIONS` terisi di Vercel — **hapus variabelnya**. |
+| `SQLSTATE... could not connect / 127.0.0.1` | `DB_HOST` belum diisi (lihat catatan `DB_URL` di atas). |
 | CSS/JS tidak muncul / situs tanpa gaya | Cek blok `routes` di `vercel.json`. Bila di console browser muncul *mixed content*, pastikan `trustProxies` masih ada di `bootstrap/app.php`. |
 | `Class not found` | Composer gagal install — cek Build Logs. |
