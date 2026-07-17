@@ -66,13 +66,21 @@
         .ekskul-thumb {
             height: 160px;
             display: grid;
+            /* Baris grid default berukuran `auto` = mengikuti isi, sehingga gambar
+               tinggi ikut membengkakkan baris dan meluber menutupi judul/deskripsi
+               kartu — height:160px di sini tidak mengekangnya.
+               minmax(0, 1fr) memaksa baris ikut tinggi wadah, bukan isi. */
+            grid-template-rows: minmax(0, 1fr);
             place-items: center;
             font-size: 3.2rem;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             position: relative;
+            overflow: hidden;
         }
 
         .ekskul-thumb img {
+            align-self: stretch;
+            justify-self: stretch;
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -196,10 +204,19 @@
         .ekskul-modal-hero {
             height: 150px;
             display: grid;
+            /* Sama seperti .ekskul-thumb: tanpa ini baris grid mengikuti tinggi
+               asli gambar dan meluber menutupi teks modal di bawahnya. */
+            grid-template-rows: minmax(0, 1fr);
             place-items: center;
             font-size: 3.4rem;
             background: linear-gradient(135deg, var(--primary-dark), var(--accent));
             flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .ekskul-modal-hero img {
+            align-self: stretch;
+            justify-self: stretch;
         }
 
         .ekskul-modal-close {

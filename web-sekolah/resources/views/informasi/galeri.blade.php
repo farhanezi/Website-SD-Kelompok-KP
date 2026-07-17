@@ -117,7 +117,7 @@
         }
 
         .galeri-modal-media {
-            background: #0b1f3a;
+            background: var(--primary-dark);
             display: grid;
             place-items: center;
             min-height: 240px;
